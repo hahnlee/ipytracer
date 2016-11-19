@@ -11,7 +11,9 @@ Planning
 - Apply Chart.js
 
 # Demo
-![Imgur](http://i.imgur.com/RNmjRi4.gif).
+![2DArray](http://i.imgur.com/pRHVLcN.gif)
+
+![BubbleSort](http://i.imgur.com/yveLVHX.gif)
 
 Author
 ------
