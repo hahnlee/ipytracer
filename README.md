@@ -10,6 +10,12 @@ Planning
 - Add more tracer api
 - Apply Chart.js
 
+# Installation
+```console
+$ gitclone https://github.com/sn0wle0pard/tracer.git
+$ cd traser
+$ python setup.py install
+```
 # Demo
 ![2DArray](http://i.imgur.com/pRHVLcN.gif)
 
