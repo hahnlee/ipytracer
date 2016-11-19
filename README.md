@@ -11,8 +11,11 @@ Planning
 - Apply Chart.js
 
 # Installation
+Requirement
+- Jupyter/IPython Notebook
+
 ```console
-$ gitclone https://github.com/sn0wle0pard/tracer.git
+$ git clone https://github.com/sn0wle0pard/tracer.git
 $ cd traser
 $ python setup.py install
 ```
