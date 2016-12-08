@@ -1,8 +1,32 @@
+from setuptools import (
+    setup,
+    Command
+)
 import os
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+import sys
+import platform
+
+here = os.path.dirname(os.path.abspath(__file__))
+node_root = os.path.join(here, 'js')
+is_repo = os.path.exists(os.path.join(here, '.git'))
+
+npm_path = os.pathsep.join([
+    os.path.join(node_root, 'node_modules', '.bin'),
+    os.environ.get('PATH', os.defpath),
+])
+
+
+class NPM(Command):
+    description = 'install package.json dependencies using npm'
+
+    user_options = []
+
+    node_modules = os.path.join(node_root, 'node_modules')
+
+    targets = [
+        os.path.join(here, 'tracer', 'static', 'extension.js'),
+        os.path.join(here, 'tracer', 'static', 'index.js')
+    ]
 
 
 setup(
@@ -50,5 +74,5 @@ setup(
         'IPython',
     ],
 
-    zip_safe=True,
+    zip_safe=False,
 )
