@@ -4,4 +4,4 @@
 .ropeproject/
 build/
 dist/
-./idea
+.idea/
