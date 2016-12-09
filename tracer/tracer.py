@@ -1,56 +1,153 @@
+from jinja2 import Template
+from ipywidgets.widgets.domwidget import DOMWidget
 import time
 from IPython.core.display import (
     display,
     HTML,
+    Javascript
 )
 from IPython.display import clear_output
+from uuid import uuid4
 from .model import ListElement
 
 
-class Tracer(object):
-    def __init__(self, data, delay=0.25):
+class Tracer(DOMWidget):
+    """basic Tracer object it show list as table"""
+    def __init__(self, data, delay=0.25, **kwargs):
+        super(Tracer, self).__init__(**kwargs)
         self.data = data
         self.delay = delay
-        self.is_show = False
+        self._id = uuid4()
 
     def __len__(self):
         return len(self.data)
 
     def __add__(self, value):
+        # event when list or Tracer object added
         self.data += value
-        if self.is_show:
-            display(HTML('<p>%s</p>' % str(self.data)))
+        self._update_html()
 
     def __setitem__(self, key, value):
-        if self.is_show:
-            html = '<table><tr>'
-            for _index, _value in enumerate(self.data):
-                if _index == key:
-                    html += '<td style="background: blue; color: white">%s</td>' % str(value)
-                else:
-                    html += '<td>%s</td>' % str(_value)
-            html += '</tr></table>'
-            display(HTML(html))
-            time.sleep(self.delay)
-            clear_output(wait=True)
+        print("setitem")
         self.data[key] = value
+        tpl_js = '''
+                $('#{id}-{key}').addClass('set-item');
+                $('#{id}-{key}').html({value});
+                '''
+        js = tpl_js.format(id=self._id, key=key, value=value)
+        display(Javascript(js))
+
+        time.sleep(self.delay)
+        tpl_js = '''
+                $('#{id}-{key}').removeClass('set-item');
+                '''
+        js = tpl_js.format(id=self._id, key=key)
+        display(Javascript(js))
 
     def __getitem__(self, key):
-        if self.is_show:
-            html = '<table><tr>'
-            for _index, _value in enumerate(self.data):
-                if _index == key:
-                    html += '<td style="background: red;color: white">%s</td>' % str(_value)
-                else:
-                    html += '<td>%s</td>' % str(_value)
-            display(HTML(html))
-            time.sleep(self.delay)
-            clear_output(wait=True)
+        tpl_js = '''
+                $('#{id}-{key}').addClass('get-item');
+                '''
+        js = tpl_js.format(id=self._id, key=key)
+        display(Javascript(js))
+
+        time.sleep(self.delay)
+        tpl_js = '''
+                $('#{id}-{key}').removeClass('get-item');
+                '''
+        js = tpl_js.format(id=self._id, key=key)
+        display(Javascript(js))
+        self._update_html()
+
         return self.data[key]
 
-    def set_show(self, is_show, delay=0.25):
-        self.is_show = is_show
-        self.delay = delay
+    def __delitem__(self, key):
+        del self.data[key]
+        self._update_html()
+
+    '''
+    Python List data type method
+    '''
+    def append(self, value):
+        self.data.append(value)
+        self._update_html()
+
+    def extend(self, L):
+        self.data.extend(L)
+        self._update_html()
+
+    def insert(self, i, x):
+        self.data.insert(i, x)
+        self._update_html()
+        display(Javascript(
+            '''
+            '''
+        ))
+
+    def remove(self, x):
+        self.data.remove(x)
+        self._update_html()
+
+    def pop(self, i):
+        self.data.pop(i)
+        self._update_html()
+
+    def index(self, x):
+        return self.data.index(x)
+
+    def count(self, x):
+        return self.data.count(x)
+
+    def sort(self, key=None, reverse=False):
+        self.data.sort(key=key, reverse=reverse)
+        self._update_html()
+
+    def reverse(self):
+        self.data.reverse()
+        self._update_html()
+
+    # end
+
+    def _update_html(self):
+        """
+        update display html
+        """
+        clear_output(wait=True)
+        display(HTML('''
+        <style>
+            .set-item {
+                background-color: blue;
+                color: white;
+            }
+            .get-item {
+                background-color: red;
+                color: white;
+            }
+        </style>
+        '''))
+
+        tpl = Template('''
+        <table id="{{id}}">
+            <tr>
+            {% for cell in data %}
+                <td id="{{ id }}-{{ loop.index0 }}">{{ cell }}</td>
+            {% endfor %}
+            </tr>
+        <table>
+        ''')
+
+        html = tpl.render(
+            id=self._id,
+            data=self.data
+        )
+
+        display(HTML(html))
+
+    def _ipython_display_(self, **kwargs):
+        self._update_html()
+
+    def show(self):
+        self._update_html()
 
 
 class ChartTracer(object):

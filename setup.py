@@ -71,7 +71,9 @@ setup(
     packages=['tracer'],
 
     install_requires=[
+        'jinja2',
         'IPython',
+        'ipywidgets',
     ],
 
     zip_safe=False,
