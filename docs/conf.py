@@ -20,7 +20,7 @@
 import os
 import sys
 # [read the docs](read-the-docs.readthedocs.org/en/latest/faq.html)
-from mock import Mock as MagicMock
+from unittest.mock import MagicMock
 
 class Mock(MagicMock):
     @classmethod
