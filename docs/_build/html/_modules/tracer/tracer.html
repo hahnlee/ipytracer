@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tracer.tracer &#8212; tracer 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="tracer 0.0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for tracer.tracer</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">jinja2</span> <span class="k">import</span> <span class="n">Template</span>
+<span class="kn">from</span> <span class="nn">ipywidgets.widgets.domwidget</span> <span class="k">import</span> <span class="n">DOMWidget</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">display</span><span class="p">,</span>
+    <span class="n">HTML</span><span class="p">,</span>
+    <span class="n">Javascript</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">clear_output</span>
+<span class="kn">from</span> <span class="nn">uuid</span> <span class="k">import</span> <span class="n">uuid4</span>
+<span class="kn">from</span> <span class="nn">.model</span> <span class="k">import</span> <span class="n">ListElement</span>
+
+
+<div class="viewcode-block" id="Tracer"><a class="viewcode-back" href="../../tracer.tracer.html#tracer.tracer.Tracer">[docs]</a><span class="k">class</span> <span class="nc">Tracer</span><span class="p">(</span><span class="n">DOMWidget</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;basic Tracer object it show list as table&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Tracer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delay</span> <span class="o">=</span> <span class="n">delay</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="n">uuid4</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># event when list or Tracer object added</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">+=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_html</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;setitem&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">tpl_js</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">                $(&#39;#</span><span class="si">{id}</span><span class="s1">-</span><span class="si">{key}</span><span class="s1">&#39;).addClass(&#39;set-item&#39;);</span>
+<span class="s1">                $(&#39;#</span><span class="si">{id}</span><span class="s1">-</span><span class="si">{key}</span><span class="s1">&#39;).html(</span><span class="si">{value}</span><span class="s1">);</span>
+<span class="s1">                &#39;&#39;&#39;</span>
+        <span class="n">js</span> <span class="o">=</span> <span class="n">tpl_js</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">Javascript</span><span class="p">(</span><span class="n">js</span><span class="p">))</span>
+
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">)</span>
+        <span class="n">tpl_js</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">                $(&#39;#</span><span class="si">{id}</span><span class="s1">-</span><span class="si">{key}</span><span class="s1">&#39;).removeClass(&#39;set-item&#39;);</span>
+<span class="s1">                &#39;&#39;&#39;</span>
+        <span class="n">js</span> <span class="o">=</span> <span class="n">tpl_js</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">Javascript</span><span class="p">(</span><span class="n">js</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">tpl_js</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">                $(&#39;#</span><span class="si">{id}</span><span class="s1">-</span><span class="si">{key}</span><span class="s1">&#39;).addClass(&#39;get-item&#39;);</span>
+<span class="s1">                &#39;&#39;&#39;</span>
+        <span class="n">js</span> <span class="o">=</span> <span class="n">tpl_js</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">Javascript</span><span class="p">(</span><span class="n">js</span><span class="p">))</span>
+
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">)</span>
+        <span class="n">tpl_js</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">                $(&#39;#</span><span class="si">{id}</span><span class="s1">-</span><span class="si">{key}</span><span class="s1">&#39;).removeClass(&#39;get-item&#39;);</span>
+<span class="s1">                &#39;&#39;&#39;</span>
+        <span class="n">js</span> <span class="o">=</span> <span class="n">tpl_js</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">Javascript</span><span class="p">(</span><span class="n">js</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_html</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_html</span><span class="p">()</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Python List data type method</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Tracer.append"><a class="viewcode-back" href="../../tracer.tracer.html#tracer.tracer.Tracer.append">[docs]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_html</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Tracer.extend"><a class="viewcode-back" href="../../tracer.tracer.html#tracer.tracer.Tracer.extend">[docs]</a>    <span class="k">def</span> <span class="nf">extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">L</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_html</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Tracer.insert"><a class="viewcode-back" href="../../tracer.tracer.html#tracer.tracer.Tracer.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_html</span><span class="p">()</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">Javascript</span><span class="p">(</span>
+            <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            &#39;&#39;&#39;</span>
+        <span class="p">))</span></div>
+
+<div class="viewcode-block" id="Tracer.remove"><a class="viewcode-back" href="../../tracer.tracer.html#tracer.tracer.Tracer.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_html</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Tracer.pop"><a class="viewcode-back" href="../../tracer.tracer.html#tracer.tracer.Tracer.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_html</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Tracer.index"><a class="viewcode-back" href="../../tracer.tracer.html#tracer.tracer.Tracer.index">[docs]</a>    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Tracer.count"><a class="viewcode-back" href="../../tracer.tracer.html#tracer.tracer.Tracer.count">[docs]</a>    <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Tracer.sort"><a class="viewcode-back" href="../../tracer.tracer.html#tracer.tracer.Tracer.sort">[docs]</a>    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="n">reverse</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_html</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Tracer.reverse"><a class="viewcode-back" href="../../tracer.tracer.html#tracer.tracer.Tracer.reverse">[docs]</a>    <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_html</span><span class="p">()</span></div>
+
+    <span class="c1"># end</span>
+
+    <span class="k">def</span> <span class="nf">_update_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        update display html</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">        &lt;style&gt;</span>
+<span class="s1">            .set-item {</span>
+<span class="s1">                background-color: blue;</span>
+<span class="s1">                color: white;</span>
+<span class="s1">            }</span>
+<span class="s1">            .get-item {</span>
+<span class="s1">                background-color: red;</span>
+<span class="s1">                color: white;</span>
+<span class="s1">            }</span>
+<span class="s1">        &lt;/style&gt;</span>
+<span class="s1">        &#39;&#39;&#39;</span><span class="p">))</span>
+
+        <span class="n">tpl</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">        &lt;table id=&quot;{{id}}&quot;&gt;</span>
+<span class="s1">            &lt;tr&gt;</span>
+<span class="s1">            {</span><span class="si">% f</span><span class="s1">or cell in data %}</span>
+<span class="s1">                &lt;td id=&quot;{{ id }}-{{ loop.index0 }}&quot;&gt;{{ cell }}&lt;/td&gt;</span>
+<span class="s1">            {</span><span class="si">% e</span><span class="s1">ndfor %}</span>
+<span class="s1">            &lt;/tr&gt;</span>
+<span class="s1">        &lt;table&gt;</span>
+<span class="s1">        &#39;&#39;&#39;</span><span class="p">)</span>
+
+        <span class="n">html</span> <span class="o">=</span> <span class="n">tpl</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+        <span class="p">)</span>
+
+        <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_ipython_display_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_html</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Tracer.show"><a class="viewcode-back" href="../../tracer.tracer.html#tracer.tracer.Tracer.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_html</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="ChartTracer"><a class="viewcode-back" href="../../tracer.tracer.html#tracer.tracer.ChartTracer">[docs]</a><span class="k">class</span> <span class="nc">ChartTracer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mf">0.25</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delay</span> <span class="o">=</span> <span class="n">delay</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_show</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_show</span><span class="p">:</span>
+            <span class="n">html</span> <span class="o">=</span> <span class="s1">&#39;&lt;div style=&quot;display: table;&quot;&gt;&#39;</span>
+            <span class="k">for</span> <span class="n">_index</span><span class="p">,</span> <span class="n">_value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">_index</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+                    <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;div style=&quot;display: table-cell; vertical-align: bottom;&quot;&gt;&lt;div style=&quot;width: 20px; height: </span><span class="si">%s</span><span class="s1">0px; background: blue&quot;&gt;</span><span class="si">%s</span><span class="s1">&lt;/div&gt;&lt;/div&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;div style=&quot;display: table-cell; vertical-align: bottom;&quot;&gt;&lt;div style=&quot;width: 20px; height: </span><span class="si">%s</span><span class="s1">0px; background: gray&quot;&gt;</span><span class="si">%s</span><span class="s1">&lt;/div&gt;&lt;/div&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">_value</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">_value</span><span class="p">))</span>
+            <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/div&gt;&#39;</span>
+            <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html</span><span class="p">))</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">)</span>
+            <span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_show</span><span class="p">:</span>
+            <span class="n">html</span> <span class="o">=</span> <span class="s1">&#39;&lt;div style=&quot;display: table&quot;&gt;&#39;</span>
+            <span class="k">for</span> <span class="n">_index</span><span class="p">,</span> <span class="n">_value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">_index</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+                    <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;div style=&quot;display: table-cell; vertical-align: bottom;&quot;&gt;&lt;div style=&quot;width: 20px; height: </span><span class="si">%s</span><span class="s1">0px; background: red&quot;&gt;</span><span class="si">%s</span><span class="s1">&lt;/div&gt;&lt;/div&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">_value</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">_value</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;div style=&quot;display: table-cell; vertical-align: bottom;&quot;&gt;&lt;div style=&quot;width: 20px; height: </span><span class="si">%s</span><span class="s1">0px; background: gray&quot;&gt;</span><span class="si">%s</span><span class="s1">&lt;/div&gt;&lt;/div&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">_value</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">_value</span><span class="p">))</span>
+            <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/div&gt;&#39;</span>
+            <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html</span><span class="p">))</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">)</span>
+            <span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+<div class="viewcode-block" id="ChartTracer.set_show"><a class="viewcode-back" href="../../tracer.tracer.html#tracer.tracer.ChartTracer.set_show">[docs]</a>    <span class="k">def</span> <span class="nf">set_show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_show</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mf">0.25</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_show</span> <span class="o">=</span> <span class="n">is_show</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delay</span> <span class="o">=</span> <span class="n">delay</span></div></div>
+
+
+<div class="viewcode-block" id="Tracer2DList"><a class="viewcode-back" href="../../tracer.tracer.html#tracer.tracer.Tracer2DList">[docs]</a><span class="k">class</span> <span class="nc">Tracer2DList</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">ListElement</span><span class="p">(</span><span class="n">_val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_id</span><span class="p">,</span> <span class="n">_i</span><span class="p">)</span> <span class="k">for</span> <span class="n">_i</span><span class="p">,</span> <span class="n">_val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_show</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delay</span> <span class="o">=</span> <span class="mf">0.25</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_show</span><span class="p">:</span>
+            <span class="n">html</span> <span class="o">=</span> <span class="s1">&#39;&lt;table&gt;&#39;</span>
+            <span class="k">for</span> <span class="n">_i</span><span class="p">,</span> <span class="n">_value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">):</span>
+                <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;tr&gt;&#39;</span>
+                <span class="k">for</span> <span class="n">_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_value</span><span class="p">)):</span>
+                    <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;td id=&quot;</span><span class="si">%d</span><span class="s1">-</span><span class="si">%d</span><span class="s1">-</span><span class="si">%d</span><span class="s1">&quot;&gt;</span><span class="si">%s</span><span class="s1">&lt;/td&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_id</span><span class="p">,</span> <span class="n">_i</span><span class="p">,</span> <span class="n">_index</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">_value</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="n">_index</span><span class="p">)))</span>
+                <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/tr&gt;&#39;</span>
+            <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/table&gt;&#39;</span>
+            <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html</span><span class="p">))</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Tracer2DList.set_show"><a class="viewcode-back" href="../../tracer.tracer.html#tracer.tracer.Tracer2DList.set_show">[docs]</a>    <span class="k">def</span> <span class="nf">set_show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_show</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mf">0.25</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_show</span> <span class="o">=</span> <span class="n">is_show</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delay</span> <span class="o">=</span> <span class="n">delay</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Han Lee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
