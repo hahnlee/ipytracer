@@ -27,7 +27,7 @@ class Mock(MagicMock):
     def __getattr__(cls, name):
         return Mock()
 
-MOCK_MODULES = ['IPython', 'ipywidgets']
+MOCK_MODULES = ['jinja2', 'IPython', 'ipywidgets']
 sys.modules.update((mod, Mock) for mod in MOCK_MODULES)
 
 sys.path.insert(0, os.path.abspath('..'))
