@@ -4,7 +4,10 @@
     tracer
     ~~~~~~
 
-    Algorithm visualizer for Jupyter/IPython Notebook
+    Algorithm visualizer for Jupyter/IPython Notebook.
+    
+    :copyright: (c) 2015 by Han Lee (sn0wle0pard).
+    :license: MIT.
 """
 
 
