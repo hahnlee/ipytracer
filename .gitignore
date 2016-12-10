@@ -1,3 +1,13 @@
+# OS X
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Sphinx documentation
+docs/_build/
+
 *~
 *.pyc
 *.egg-info
