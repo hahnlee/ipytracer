@@ -1,0 +1,18 @@
+# Installation
+> `npm install --save @types/underscore`
+
+# Summary
+This package contains type definitions for Underscore (http://underscorejs.org/).
+
+# Details
+Files were exported from https://www.github.com/DefinitelyTyped/DefinitelyTyped/tree/types-2.0/underscore
+
+Additional Details
+ * Last updated: Mon, 28 Nov 2016 16:28:40 GMT
+ * File structure: UMD
+ * Library Dependencies: none
+ * Module Dependencies: none
+ * Global values: _
+
+# Credits
+These definitions were written by Boris Yankov <https://github.com/borisyankov/>, Josh Baldwin <https://github.com/jbaldwin/>, Christopher Currens <https://github.com/ccurrens/>.

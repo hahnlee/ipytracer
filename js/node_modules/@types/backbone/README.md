@@ -1,0 +1,18 @@
+# Installation
+> `npm install --save @types/backbone`
+
+# Summary
+This package contains type definitions for Backbone 1.3.3 (http://backbonejs.org/).
+
+# Details
+Files were exported from https://www.github.com/DefinitelyTyped/DefinitelyTyped/tree/types-2.0/backbone
+
+Additional Details
+ * Last updated: Mon, 19 Sep 2016 16:15:23 GMT
+ * File structure: UMD
+ * Library Dependencies: jquery
+ * Module Dependencies: underscore
+ * Global values: Backbone
+
+# Credits
+These definitions were written by Boris Yankov <https://github.com/borisyankov/>, Natan Vivo <https://github.com/nvivo/>.

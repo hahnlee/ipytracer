@@ -1,0 +1,23 @@
+{
+    "authors": "Boris Yankov <https://github.com/borisyankov/>, Josh Baldwin <https://github.com/jbaldwin/>, Christopher Currens <https://github.com/ccurrens/>",
+    "definitionFilename": "index.d.ts",
+    "libraryDependencies": [],
+    "moduleDependencies": [],
+    "libraryMajorVersion": 1,
+    "libraryMinorVersion": 7,
+    "libraryName": "Underscore",
+    "typingsPackageName": "underscore",
+    "projectName": "http://underscorejs.org/",
+    "sourceRepoURL": "https://www.github.com/DefinitelyTyped/DefinitelyTyped",
+    "sourceBranch": "types-2.0",
+    "kind": "UMD",
+    "globals": [
+        "_"
+    ],
+    "declaredModules": [],
+    "files": [
+        "index.d.ts"
+    ],
+    "hasPackageJson": false,
+    "contentHash": "defd6114ad189a8ed3f3e9a6c3b20ce33fd45d39b48ad56099036bd95379c02a"
+}

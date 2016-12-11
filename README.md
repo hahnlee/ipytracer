@@ -16,8 +16,10 @@ Requirement
 
 ```console
 $ git clone https://github.com/sn0wle0pard/tracer.git
-$ cd traser
-$ python setup.py install
+$ cd tracer
+$ pip install -e .
+$ jupyter nbextension install --py --symlink --sys-prefix tracer
+$ jupyter nbextension enable --py --sys-prefix tracer
 ```
 # Demo
 ![2DArray](http://i.imgur.com/pRHVLcN.gif)

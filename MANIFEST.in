@@ -1,0 +1,2 @@
+recursive-include tracer/static *.*
+recursive-include tracer/staticlab *.*

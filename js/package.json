@@ -1,0 +1,31 @@
+{
+  "name": "tracer",
+  "version": "0.0.1",
+  "description": "Algorithm Visualizer for Jupyter/IPython Notebook",
+  "author": "Han Lee(sn0wle0pard)",
+  "license": "MIT",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sn0wle0pard/tracer.git"
+  },
+  "scripts": {
+    "prepublish": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
+    "json-loader": "^0.5.4",
+    "@jupyterlab/extension-builder": "^0.8.1",
+    "rimraf": "^2.4.1",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.12.14"
+  },
+  "dependencies": {
+    "chart.js": "^2.4.0",
+    "jupyter-js-widgets": "^2.0.12",
+    "@jupyterlab/nbwidgets": "^0.6.0",
+    "underscore": "^1.8.3"
+  }
+}

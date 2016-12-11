@@ -4,6 +4,10 @@
 # Python
 __pycache__/
 *.py[cod]
+develop-eggs
+.installed.cfg
+lib
+lib64
 
 # Sphinx documentation
 docs/_build/
@@ -11,7 +15,14 @@ docs/_build/
 *~
 *.pyc
 *.egg-info
-.ropeproject/
+.ropeproject
 build/
-dist/
+dist
 .idea/
+
+# Compiled javascript
+tracer/static/
+tracer/staticlab/
+
+# Node modules
+node_modules

@@ -5,7 +5,7 @@
     ~~~~~~
 
     Algorithm visualizer for Jupyter/IPython Notebook.
-    
+
     :copyright: (c) 2015 by Han Lee (sn0wle0pard).
     :license: MIT.
 """
@@ -28,9 +28,3 @@ def _jupyter_nbextension_paths():
         'require': 'tracer/extension'
     }]
 
-
-def _jupyter_labextension_paths():
-    return [{
-        'name': 'tracer',
-        'src': 'staticlab',
-    }]
