@@ -135,9 +135,10 @@ setup_args = {
         ]),
     ],
     'install_requires': [
-        'jinja2',
         'IPython',
         'ipywidgets',
+        'jinja2',
+        'notebook'
     ],
     'packages': find_packages(),
     'zip_safe': False,
