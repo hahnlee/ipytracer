@@ -36,7 +36,6 @@ class List1DTracer(DOMWidget):
         self._update_html()
 
     def __setitem__(self, key, value):
-        print("setitem")
         self.data[key] = value
         tpl_js = '''
                 $('#{id}-{key}').addClass('set-item');
