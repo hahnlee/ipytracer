@@ -23,6 +23,7 @@
     "webpack": "^1.12.14"
   },
   "dependencies": {
+    "jquery": "^3.1.1",
     "chart.js": "^2.4.0",
     "jupyter-js-widgets": "^2.0.12",
     "@jupyterlab/nbwidgets": "^0.6.0",

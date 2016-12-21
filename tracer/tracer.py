@@ -1,5 +1,13 @@
 from jinja2 import Template
-from ipywidgets.widgets.domwidget import DOMWidget
+from ipywidgets import (
+    Widget, DOMWidget, Box, Color, CallbackDispatcher, widget_serialization,
+    Layout
+)
+
+from traitlets import (
+    Float, Unicode, Int, Tuple, List, Instance, Bool, Dict, link, observe,
+    default, validate, TraitError
+)
 import time
 from IPython.core.display import (
     display,
@@ -11,7 +19,7 @@ from uuid import uuid4
 from .model import ListElement
 
 
-class Tracer(DOMWidget):
+class List1DTracer(DOMWidget):
     """basic Tracer object it show list as table"""
     def __init__(self, data, delay=0.25, **kwargs):
         super(Tracer, self).__init__(**kwargs)
@@ -150,53 +158,22 @@ class Tracer(DOMWidget):
         self._update_html()
 
 
-class ChartTracer(object):
-    def __init__(self, data, delay=0.25):
-        self.data = data
-        self.delay = delay
-        self.is_show = False
+class ChartTracer(DOMWidget):
 
-    def __len__(self):
-        return len(self.data)
+    _view_name = Unicode('ChartTracerView').tag(sync=True)
+    _model_name = Unicode('ChartTracerModel').tag(sync=True)
+    _view_module = Unicode('tracer').tag(sync=True)
+    _model_module = Unicode('tracer').tag(sync=True)
 
-    def __setitem__(self, key, value):
-        if self.is_show:
-            html = '<div style="display: table;">'
-            for _index, _value in enumerate(self.data):
-                if _index == key:
-                    html += '<div style="display: table-cell; vertical-align: bottom;"><div style="width: 20px; height: %s0px; background: blue">%s</div></div>' % (
-                    str(value), str(value))
-                else:
-                    html += '<div style="display: table-cell; vertical-align: bottom;"><div style="width: 20px; height: %s0px; background: gray">%s</div></div>' % (
-                    str(_value), str(_value))
-            html += '</div>'
-            display(HTML(html))
-            time.sleep(self.delay)
-            clear_output(wait=True)
-        self.data[key] = value
+    @default('layout')
+    def _default_layout(self):
+        return Layout(height='400px', width='400px', align_self='stretch')
 
-    def __getitem__(self, key):
-        if self.is_show:
-            html = '<div style="display: table">'
-            for _index, _value in enumerate(self.data):
-                if _index == key:
-                    html += '<div style="display: table-cell; vertical-align: bottom;"><div style="width: 20px; height: %s0px; background: red">%s</div></div>' % (
-                    str(_value), str(_value))
-                else:
-                    html += '<div style="display: table-cell; vertical-align: bottom;"><div style="width: 20px; height: %s0px; background: gray">%s</div></div>' % (
-                    str(_value), str(_value))
-            html += '</div>'
-            display(HTML(html))
-            time.sleep(self.delay)
-            clear_output(wait=True)
-        return self.data[key]
-
-    def set_show(self, is_show, delay=0.25):
-        self.is_show = is_show
-        self.delay = delay
+    def __init__(self, **kwargs):
+        super(ChartTracer, self).__init__(**kwargs)
 
 
-class Tracer2DList(object):
+class List2DTracer(object):
     data = []
 
     def __init__(self, data):
