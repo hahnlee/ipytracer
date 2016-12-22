@@ -11,8 +11,9 @@
 """
 
 
-from .tracer import *
 from _version import __version__
+
+from .tracer import *
 
 __author__ = 'Han Lee (@sn0wle0pard)'
 __version__ = __version__

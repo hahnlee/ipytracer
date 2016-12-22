@@ -22,7 +22,7 @@ from .model import ListElement
 class List1DTracer(DOMWidget):
     """basic Tracer object it show list as table"""
     def __init__(self, data, delay=0.25, **kwargs):
-        super(Tracer, self).__init__(**kwargs)
+        super(List1DTracer, self).__init__(**kwargs)
         self.data = data
         self.delay = delay
         self._id = uuid4()
@@ -164,12 +164,28 @@ class ChartTracer(DOMWidget):
     _view_module = Unicode('tracer').tag(sync=True)
     _model_module = Unicode('tracer').tag(sync=True)
 
+    data = List().tag(sync=True)
+    labels = List().tag(sync=True)
+
     @default('layout')
     def _default_layout(self):
-        return Layout(height='400px', width='400px', align_self='stretch')
+        return Layout(height='300px')
 
-    def __init__(self, **kwargs):
+    def __init__(self, data, delay=0.25, **kwargs):
         super(ChartTracer, self).__init__(**kwargs)
+        self.data = data
+        self.labels = [i for i in range(len(data))]
+
+        self.delay = delay
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, key):
+        return self.data[key]
+
+    def __setitem__(self, key, value):
+        self.data[key] = value
 
 
 class List2DTracer(object):
