@@ -153,7 +153,7 @@ setup_args = {
     'url': 'https://github.com/sn0wle0pard/tracer',
     'keywords': ["algorithm visualizer"],
     'classifiers': [
-        'Development Status :: 1 - Planning',
+        'Development Status :: 2 - Pre-Alpha',
 
         'Topic :: Scientific/Engineering :: Visualization',
         'Topic :: Utilities',

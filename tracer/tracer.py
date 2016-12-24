@@ -166,6 +166,8 @@ class ChartTracer(DOMWidget):
 
     data = List().tag(sync=True)
     labels = List().tag(sync=True)
+    selected = Int(-1).tag(sync=True)
+    set = Int(-1).tag(sync=True)
 
     @default('layout')
     def _default_layout(self):
@@ -174,18 +176,23 @@ class ChartTracer(DOMWidget):
     def __init__(self, data, delay=0.25, **kwargs):
         super(ChartTracer, self).__init__(**kwargs)
         self.data = data
+        self._data = data
         self.labels = [i for i in range(len(data))]
-
         self.delay = delay
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, key):
+        self.selected = key
+        time.sleep(self.delay)
         return self.data[key]
 
     def __setitem__(self, key, value):
-        self.data[key] = value
+        self._data[key] = value
+        self.data = self._data[:]
+        self.set = key
+        time.sleep(self.delay)
 
 
 class List2DTracer(object):

@@ -4,6 +4,10 @@ var Chart = require('chart.js');
 
 var ChartTracerView = widgets.DOMWidgetView.extend({
 
+    initialize: function (parameters) {
+        ChartTracerView.__super__.initialize.apply(this, arguments);
+    },
+
     render: function() {
         ChartTracerView.__super__.render.apply(this, arguments);
         this._id = widgets.uuid();
@@ -16,18 +20,48 @@ var ChartTracerView = widgets.DOMWidgetView.extend({
         console.log(this.ctx);
 
         this.el.appendChild(this.ctx);
+        this._initalize_data();
 
-        this.chartOption = this.model.get('chart_option');
+
         // set data
-        this.chartOption['data']['datasets'][0]['data'] = this.model.get('data');
-        this.chartOption['data']['labels'] = this.model.get('labels');
-        console.log(this.chartOption);
-
         this.tracerChart = new Chart(this.ctx, this.chartOption);
+        this.listenTo(this.model, 'change:selected', this._select_index, this);
+        this.listenTo(this.model, 'change:set', this._set_index, this);
     },
 
-    events: {
-        "change": "handle_date_change"
+    _initalize_data: function () {
+        this.chartOption = this.model.get('chart_option');
+        var data = this.model.get('data');
+        this.backgroundColor = [];
+        for (var i in data) {
+            this.backgroundColor[i] = this.model.get('baseColor');
+        }
+        this.chartOption['data']['datasets'][0]['data'] = data;
+        this.chartOption['data']['datasets'][0]['backgroundColor'] = this.backgroundColor;
+        this.chartOption['data']['labels'] = this.model.get('labels');
+    },
+    
+    _select_index: function () {
+        console.log('index selected');
+        var previous = this.model.previous('selected');
+        if(previous != -1){
+            this.backgroundColor[previous] = this.model.get('baseColor');
+        }
+        this.backgroundColor[this.model.get('selected')] = this.model.get('selectedColor');
+        this.tracerChart.config.data.datasets[0].backgroundColor = this.backgroundColor;
+        this.tracerChart.update();
+    },
+
+    _set_index: function () {
+        var previous = this.model.previous('set');
+        if(previous != -1){
+            this.backgroundColor[previous] = this.model.get('baseColor');
+        }
+        this.backgroundColor[this.model.get('set')] = this.model.get('setColor');
+        this.tracerChart.config.data.datasets[0].backgroundColor = this.backgroundColor;
+        this.tracerChart.config.data.datasets[0].data = this.model.get('data');
+        console.log(this.model.get('data'));
+        this.tracerChart.update();
     }
 });
 
@@ -44,7 +78,12 @@ var ChartTracerModel = widgets.DOMWidgetModel.extend({
 
         data:[],
         labels: [],
-        backgroundColor: [],
+        selected: -1,
+        set: -1,
+
+        baseColor: '#bdbdbd',
+        selectedColor: '#f50057',
+        setColor: '#2962ff',
 
         chart_option: {
             type: 'bar',
