@@ -8,7 +8,6 @@ Pre-Alpha
 
 # Todo
 - Add more tracer api
-- Apply Chart.js
 
 # Installation
 Requirement
@@ -30,7 +29,7 @@ $ jupyter nbextension enable --py --sys-prefix tracer
 
 ![BubbleSortWork](src/bubble.gif)
 
-You can see [here](https://github.com/sn0wle0pard/tracer/example)
+You can see [here](https://github.com/sn0wle0pard/tracer/tree/master/example)
 
 Author
 ------
