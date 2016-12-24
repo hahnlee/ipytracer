@@ -1,4 +1,7 @@
-var jupyter_leaflet = require('./index');
+/*
+* https://github.com/ellisonbg/ipyleaflet/blob/master/js/src/labplugin.js
+* */
+var tracer = require('./index');
 
 var jupyterlab_widgets = require('@jupyterlab/nbwidgets');
 

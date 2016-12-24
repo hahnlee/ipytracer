@@ -1,5 +1,13 @@
 from jinja2 import Template
-from ipywidgets.widgets.domwidget import DOMWidget
+from ipywidgets import (
+    Widget, DOMWidget, Box, Color, CallbackDispatcher, widget_serialization,
+    Layout
+)
+
+from traitlets import (
+    Float, Unicode, Int, Tuple, List, Instance, Bool, Dict, link, observe,
+    default, validate, TraitError
+)
 import time
 from IPython.core.display import (
     display,
@@ -11,10 +19,10 @@ from uuid import uuid4
 from .model import ListElement
 
 
-class Tracer(DOMWidget):
+class List1DTracer(DOMWidget):
     """basic Tracer object it show list as table"""
     def __init__(self, data, delay=0.25, **kwargs):
-        super(Tracer, self).__init__(**kwargs)
+        super(List1DTracer, self).__init__(**kwargs)
         self.data = data
         self.delay = delay
         self._id = uuid4()
@@ -28,7 +36,6 @@ class Tracer(DOMWidget):
         self._update_html()
 
     def __setitem__(self, key, value):
-        print("setitem")
         self.data[key] = value
         tpl_js = '''
                 $('#{id}-{key}').addClass('set-item');
@@ -150,53 +157,45 @@ class Tracer(DOMWidget):
         self._update_html()
 
 
-class ChartTracer(object):
-    def __init__(self, data, delay=0.25):
+class ChartTracer(DOMWidget):
+
+    _view_name = Unicode('ChartTracerView').tag(sync=True)
+    _model_name = Unicode('ChartTracerModel').tag(sync=True)
+    _view_module = Unicode('tracer').tag(sync=True)
+    _model_module = Unicode('tracer').tag(sync=True)
+
+    data = List().tag(sync=True)
+    labels = List().tag(sync=True)
+    selected = Int(-1).tag(sync=True)
+    set = Int(-1).tag(sync=True)
+
+    @default('layout')
+    def _default_layout(self):
+        return Layout(height='300px')
+
+    def __init__(self, data, delay=0.25, **kwargs):
+        super(ChartTracer, self).__init__(**kwargs)
         self.data = data
+        self._data = data
+        self.labels = [i for i in range(len(data))]
         self.delay = delay
-        self.is_show = False
 
     def __len__(self):
         return len(self.data)
 
-    def __setitem__(self, key, value):
-        if self.is_show:
-            html = '<div style="display: table;">'
-            for _index, _value in enumerate(self.data):
-                if _index == key:
-                    html += '<div style="display: table-cell; vertical-align: bottom;"><div style="width: 20px; height: %s0px; background: blue">%s</div></div>' % (
-                    str(value), str(value))
-                else:
-                    html += '<div style="display: table-cell; vertical-align: bottom;"><div style="width: 20px; height: %s0px; background: gray">%s</div></div>' % (
-                    str(_value), str(_value))
-            html += '</div>'
-            display(HTML(html))
-            time.sleep(self.delay)
-            clear_output(wait=True)
-        self.data[key] = value
-
     def __getitem__(self, key):
-        if self.is_show:
-            html = '<div style="display: table">'
-            for _index, _value in enumerate(self.data):
-                if _index == key:
-                    html += '<div style="display: table-cell; vertical-align: bottom;"><div style="width: 20px; height: %s0px; background: red">%s</div></div>' % (
-                    str(_value), str(_value))
-                else:
-                    html += '<div style="display: table-cell; vertical-align: bottom;"><div style="width: 20px; height: %s0px; background: gray">%s</div></div>' % (
-                    str(_value), str(_value))
-            html += '</div>'
-            display(HTML(html))
-            time.sleep(self.delay)
-            clear_output(wait=True)
+        self.selected = key
+        time.sleep(self.delay)
         return self.data[key]
 
-    def set_show(self, is_show, delay=0.25):
-        self.is_show = is_show
-        self.delay = delay
+    def __setitem__(self, key, value):
+        self._data[key] = value
+        self.data = self._data[:]
+        self.set = key
+        time.sleep(self.delay)
 
 
-class Tracer2DList(object):
+class List2DTracer(object):
     data = []
 
     def __init__(self, data):

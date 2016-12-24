@@ -4,7 +4,7 @@
 Algorithm Visualizer for Jupyter/IPython Notebook
 
 # Development Status
-Planning
+Pre-Alpha
 
 # Todo
 - Add more tracer api
@@ -24,7 +24,13 @@ $ jupyter nbextension enable --py --sys-prefix tracer
 # Demo
 ![2DArray](http://i.imgur.com/pRHVLcN.gif)
 
-![BubbleSort](http://i.imgur.com/yveLVHX.gif)
+![BubbleSortInfo](src/bubble_info.png)
+
+![BubbleSortCode](src/bubble_code.png)
+
+![BubbleSortWork](src/bubble.gif)
+
+You can see [here](https://github.com/sn0wle0pard/tracer/example)
 
 Author
 ------

@@ -11,11 +11,12 @@
 """
 
 
+from _version import __version__
+
 from .tracer import *
 
-
 __author__ = 'Han Lee (@sn0wle0pard)'
-__version__ = '0.0.1'
+__version__ = __version__
 __copyright__ = 'Copyright (c) 2016 Han Lee'
 __license__ = 'MIT'
 
