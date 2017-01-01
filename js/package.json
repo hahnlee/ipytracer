@@ -9,6 +9,12 @@
     "type": "git",
     "url": "https://github.com/sn0wle0pard/tracer.git"
   },
+  "keywords": [
+    "jupyter",
+    "widgets",
+    "ipython",
+    "ipywidgets"
+  ],
   "scripts": {
     "prepublish": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"

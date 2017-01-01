@@ -1,8 +1,9 @@
-from setuptools import (
-    setup,
-    find_packages,
-    Command
-)
+# This setup.py is came from widget-cookiecutter
+# https://github.com/jupyter/widget-cookiecutter/blob/master/{{cookiecutter.github_project_name}}/setup.py
+# Fix package name
+
+from __future__ import print_function
+from setuptools import setup, find_packages, Command
 from setuptools.command.sdist import sdist
 from setuptools.command.build_py import build_py
 from setuptools.command.egg_info import egg_info
@@ -132,13 +133,12 @@ setup_args = {
         ('share/jupyter/nbextensions/tracer', [
             'tracer/static/extension.js',
             'tracer/static/index.js',
+            'tracer/static/index.js.map'
         ]),
     ],
     'install_requires': [
-        'IPython',
-        'ipywidgets',
+        'ipywidgets>=5.1.5',
         'jinja2',
-        'notebook'
     ],
     'packages': find_packages(),
     'zip_safe': False,
@@ -148,23 +148,29 @@ setup_args = {
         'sdist': js_prerelease(sdist, strict=True),
         'jsdeps': NPM,
     },
+
     'author': 'Han Lee',
     'author_email': 'dev.sn0wle0pard@gmail.com',
     'url': 'https://github.com/sn0wle0pard/tracer',
-    'keywords': ["algorithm visualizer"],
+    'keywords': [
+        'algorithm visualizer',
+        'ipython',
+        'jupyter',
+        'widgets',
+    ],
     'classifiers': [
         'Development Status :: 2 - Pre-Alpha',
-
-        'Topic :: Scientific/Engineering :: Visualization',
-        'Topic :: Utilities',
         'Environment :: Web Environment',
         'Framework :: IPython',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Science/Research',
 
-        # Pick your license as you wish (should match "license" above)
         'License :: OSI Approved :: MIT License',
 
-        # Specify the Python versions you support here. In particular, ensure
-        # that you indicate whether you support Python 2, Python 3 or both.
+        'Topic :: Multimedia :: Graphics',
+        'Topic :: Scientific/Engineering :: Visualization',
+        'Topic :: Utilities',
+
         'Programming Language :: Python :: 3',
         'Programming Language :: JavaScript'
     ],

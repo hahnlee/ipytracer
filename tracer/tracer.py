@@ -1,12 +1,14 @@
 from jinja2 import Template
 from ipywidgets import (
-    Widget, DOMWidget, Box, Color, CallbackDispatcher, widget_serialization,
+    DOMWidget,
     Layout
 )
 
 from traitlets import (
-    Float, Unicode, Int, Tuple, List, Instance, Bool, Dict, link, observe,
-    default, validate, TraitError
+    Unicode,
+    Int,
+    List,
+    default
 )
 import time
 from IPython.core.display import (
