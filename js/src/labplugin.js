@@ -1,4 +1,5 @@
 /*
+* This file came from
 * https://github.com/ellisonbg/ipyleaflet/blob/master/js/src/labplugin.js
 * */
 var tracer = require('./index');

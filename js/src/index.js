@@ -1,5 +1,7 @@
 var loadedModules = [
-    require('./ChartTracer.js')
+    require('./ChartTracer.js'),
+    require('./Tracer'),
+    require('./List1DTracer.js')
 ];
 
 for (var i in loadedModules) {

@@ -1,4 +1,4 @@
-from jinja2 import Template
+#  Created by sn0wle0pard
 from ipywidgets import (
     DOMWidget,
     Layout
@@ -13,10 +13,8 @@ from traitlets import (
 import time
 from IPython.core.display import (
     display,
-    HTML,
-    Javascript
+    HTML
 )
-from IPython.display import clear_output
 from uuid import uuid4
 from .model import ListElement
 
@@ -27,6 +25,10 @@ class Tracer(DOMWidget):
     """
 
     data = List().tag(sync=True)
+    _id = Unicode().tag(sync=True)
+
+    _view_module = Unicode('tracer').tag(sync=True)
+    _model_module = Unicode('tracer').tag(sync=True)
 
     notified = Int(-1).tag(sync=True)
     selected = Int(-1).tag(sync=True)
@@ -37,7 +39,7 @@ class Tracer(DOMWidget):
         self.data = data
         self._data = data
         self.delay = delay
-        self._id = uuid4()
+        self._id = str(uuid4())
 
     def __add__(self, other):
         self._data += other
@@ -60,7 +62,7 @@ class Tracer(DOMWidget):
     def __setitem__(self, key, value):
         self._data[key] = value
         self.data = list(self._data)
-        self.visited = key
+        self.selected = key
         time.sleep(self.delay)
 
     """
@@ -102,180 +104,25 @@ class Tracer(DOMWidget):
         self.data = list(self._data)
 
 
-class ChartTracer(DOMWidget):
+class ChartTracer(Tracer):
 
     _view_name = Unicode('ChartTracerView').tag(sync=True)
     _model_name = Unicode('ChartTracerModel').tag(sync=True)
-    _view_module = Unicode('tracer').tag(sync=True)
-    _model_module = Unicode('tracer').tag(sync=True)
-
-    data = List().tag(sync=True)
     labels = List().tag(sync=True)
-    selected = Int(-1).tag(sync=True)
-    set = Int(-1).tag(sync=True)
 
     @default('layout')
     def _default_layout(self):
         return Layout(height='300px')
 
     def __init__(self, data, delay=0.25, **kwargs):
-        super(ChartTracer, self).__init__(**kwargs)
-        self.data = data
-        self._data = data
-        self.labels = [i for i in range(len(data))]
-        self.delay = delay
-
-    def __len__(self):
-        return len(self.data)
-
-    def __getitem__(self, key):
-        self.selected = key
-        time.sleep(self.delay)
-        return self.data[key]
-
-    def __setitem__(self, key, value):
-        self._data[key] = value
-        self.data = self._data[:]
-        self.set = key
-        time.sleep(self.delay)
+        super(ChartTracer, self).__init__(data, delay, **kwargs)
+        self.labels = [i for i in range(len(self.data))]
 
 
-class List1DTracer(DOMWidget):
+class List1DTracer(Tracer):
 
-    def __init__(self, data, delay=0.25, **kwargs):
-        super(List1DTracer, self).__init__(**kwargs)
-        self.data = data
-        self.delay = delay
-        self._id = uuid4()
-
-    def __len__(self):
-        return len(self.data)
-
-    def __add__(self, value):
-        # event when list or Tracer object added
-        self.data += value
-        self._update_html()
-
-    def __setitem__(self, key, value):
-        self.data[key] = value
-        tpl_js = '''
-                $('#{id}-{key}').addClass('set-item');
-                $('#{id}-{key}').html({value});
-                '''
-        js = tpl_js.format(id=self._id, key=key, value=value)
-        display(Javascript(js))
-
-        time.sleep(self.delay)
-        tpl_js = '''
-                $('#{id}-{key}').removeClass('set-item');
-                '''
-        js = tpl_js.format(id=self._id, key=key)
-        display(Javascript(js))
-
-    def __getitem__(self, key):
-        tpl_js = '''
-                $('#{id}-{key}').addClass('get-item');
-                '''
-        js = tpl_js.format(id=self._id, key=key)
-        display(Javascript(js))
-
-        time.sleep(self.delay)
-        tpl_js = '''
-                $('#{id}-{key}').removeClass('get-item');
-                '''
-        js = tpl_js.format(id=self._id, key=key)
-        display(Javascript(js))
-        self._update_html()
-
-        return self.data[key]
-
-    def __delitem__(self, key):
-        del self.data[key]
-        self._update_html()
-
-    '''
-    Python List data type method
-    '''
-    def append(self, value):
-        self.data.append(value)
-        self._update_html()
-
-    def extend(self, L):
-        self.data.extend(L)
-        self._update_html()
-
-    def insert(self, i, x):
-        self.data.insert(i, x)
-        self._update_html()
-        display(Javascript(
-            '''
-            '''
-        ))
-
-    def remove(self, x):
-        self.data.remove(x)
-        self._update_html()
-
-    def pop(self, i):
-        self.data.pop(i)
-        self._update_html()
-
-    def index(self, x):
-        return self.data.index(x)
-
-    def count(self, x):
-        return self.data.count(x)
-
-    def sort(self, key=None, reverse=False):
-        self.data.sort(key=key, reverse=reverse)
-        self._update_html()
-
-    def reverse(self):
-        self.data.reverse()
-        self._update_html()
-
-    # end
-
-    def _update_html(self):
-        """
-        update display html
-        """
-        clear_output(wait=True)
-        display(HTML('''
-        <style>
-            .set-item {
-                background-color: blue;
-                color: white;
-            }
-            .get-item {
-                background-color: red;
-                color: white;
-            }
-        </style>
-        '''))
-
-        tpl = Template('''
-        <table id="{{id}}">
-            <tr>
-            {% for cell in data %}
-                <td id="{{ id }}-{{ loop.index0 }}">{{ cell }}</td>
-            {% endfor %}
-            </tr>
-        <table>
-        ''')
-
-        html = tpl.render(
-            id=self._id,
-            data=self.data
-        )
-
-        display(HTML(html))
-
-    def _ipython_display_(self, **kwargs):
-        self._update_html()
-
-    def show(self):
-        self._update_html()
+    _view_name = Unicode('List1DTracerView').tag(sync=True)
+    _model_name = Unicode('List1DTracerModel').tag(sync=True)
 
 
 class List2DTracer(object):
