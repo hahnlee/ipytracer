@@ -60,20 +60,6 @@ var ChartTracerModel = tracer.TracerModel.extend({
     defaults: _.extend({}, tracer.TracerModel.prototype.defaults, {
         _view_name : 'ChartTracerView',
         _model_name : 'ChartTracerModel',
-        _view_module : 'tracer',
-        _model_module : 'tracer',
-
-        data:[],
-        labels: [],
-
-        notified: -1,
-        selected: -1,
-        visited: -1,
-
-        defaultColor: '#bdbdbd',
-        notifiedColor: '#37D242',
-        selectedColor: '#2962ff',
-        visitedColor: '#f50057',
 
         chart_option: {
             type: 'bar',
