@@ -20,7 +20,7 @@ var TracerView = widgets.DOMWidgetView.extend({
     },
 
     data_change: function () {
-        if(this.model.previous('data').size != this.model.get('data')){
+        if(this.model.previous('data').length != this.model.get('data').length){
             this._data_update();
         }
     },

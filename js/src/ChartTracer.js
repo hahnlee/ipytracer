@@ -37,7 +37,6 @@ var ChartTracerView = tracer.TracerView.extend({
         this.backgroundColor[this.model.get('selected')] = this.model.get('visitedColor');
         this.tracerChart.config.data.datasets[0].backgroundColor = this.backgroundColor;
         this.tracerChart.config.data.datasets[0].data = this.model.get('data');
-        console.log(this.model.get('data'));
         this.tracerChart.update();
     },
     

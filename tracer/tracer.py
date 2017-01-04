@@ -43,12 +43,12 @@ class Tracer(DOMWidget):
 
     def __add__(self, other):
         self._data += other
-        self.data = list(self._data)  # FIXME support custom notify trait
+        self.data = self._data[:]  # FIXME support custom notify trait
         time.sleep(self.delay)
 
     def __delitem__(self, key):
         del self._data[key]
-        self.data = list(self._data)
+        self.data = self._data[:]
         time.sleep(self.delay)
 
     def __getitem__(self, key):
@@ -61,7 +61,7 @@ class Tracer(DOMWidget):
 
     def __setitem__(self, key, value):
         self._data[key] = value
-        self.data = list(self._data)
+        self.data = self._data[:]
         self.selected = key
         time.sleep(self.delay)
 

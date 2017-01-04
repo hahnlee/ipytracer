@@ -3,6 +3,8 @@
 
 Algorithm Visualizer for Jupyter/IPython Notebook.
 
+It was inspired by parkjs814's [AlgorithmVisualizer](https://github.com/parkjs814/AlgorithmVisualizer).
+
 You can see how your Python code works.
 
 If you use the `display(TracerObject)` code from where you want to see, you can use it without any special modification.
@@ -27,6 +29,8 @@ $ jupyter nbextension install --py --symlink --sys-prefix tracer
 $ jupyter nbextension enable --py --sys-prefix tracer
 ```
 # Demo
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kRBnhTIRGu8" frameborder="0" allowfullscreen></iframe>
 
 ![BubbleSortInfo](src/bubble_info.png)
 
