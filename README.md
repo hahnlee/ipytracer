@@ -29,8 +29,12 @@ $ jupyter nbextension install --py --symlink --sys-prefix tracer
 $ jupyter nbextension enable --py --sys-prefix tracer
 ```
 # Demo
+## Youtube Video
+[![Alt text](https://img.youtube.com/vi/kRBnhTIRGu8/0.jpg)](https://www.youtube.com/watch?v=kRBnhTIRGu8)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/kRBnhTIRGu8" frameborder="0" allowfullscreen></iframe>
+https://youtu.be/kRBnhTIRGu8
+
+## imags
 
 ![BubbleSortInfo](src/bubble_info.png)
 
