@@ -32,7 +32,7 @@ $ jupyter nbextension enable --py --sys-prefix tracer
 ## Youtube Video
 [![Alt text](https://img.youtube.com/vi/vZQJ0Y3GtIs/0.jpg)](https://www.youtube.com/watch?v=vZQJ0Y3GtIs)
 
-https://youtu.be/kRBnhTIRGu8
+https://youtu.be/vZQJ0Y3GtIs
 
 ## imags
 
