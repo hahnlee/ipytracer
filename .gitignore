@@ -8,6 +8,7 @@ develop-eggs
 .installed.cfg
 lib
 lib64
+.pypirc
 
 # Sphinx documentation
 docs/_build/
