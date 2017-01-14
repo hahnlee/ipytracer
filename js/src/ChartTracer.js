@@ -14,7 +14,29 @@ var ChartTracerView = tracer.TracerView.extend({
     },
 
     _initialize_data: function () {
-        this.chartOption = this.model.get('chart_option');
+        this.chartOption = {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    data: [],
+                    backgroundColor: []
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                animation: false,
+                legend: false,
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        };
         var data = this.model.get('data');
         this.backgroundColor = [];
         for (var i in data) {
@@ -58,31 +80,7 @@ var ChartTracerView = tracer.TracerView.extend({
 var ChartTracerModel = tracer.TracerModel.extend({
     defaults: _.extend({}, tracer.TracerModel.prototype.defaults, {
         _view_name : 'ChartTracerView',
-        _model_name : 'ChartTracerModel',
-
-        chart_option: {
-            type: 'bar',
-            data: {
-                labels: [],
-                datasets: [{
-                    data: [],
-                    backgroundColor: []
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                },
-                animation: false,
-                legend: false,
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        }
+        _model_name : 'ChartTracerModel'
     })
 });
 
