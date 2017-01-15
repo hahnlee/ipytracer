@@ -5,3 +5,4 @@ python:
   - 3.4
 install:
   - pip install tracer.py
+script: pytest
