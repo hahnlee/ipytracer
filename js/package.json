@@ -7,7 +7,7 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sn0wle0pard/tracer.git"
+    "url": "https://github.com/sn0wle0pard/tracer.py.git"
   },
   "keywords": [
     "jupyter",

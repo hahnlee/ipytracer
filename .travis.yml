@@ -3,11 +3,7 @@ sudo: true
 python:
   - 3.5
   - 3.4
-before_install:
-  - git clone https://github.com/sn0wle0pard/tracer.py.git
 install:
-  - cd tracer.py
-  - pip install -e .
+  - pip install tracer.py
 script:
-  - jupyter nbextension install --py --symlink --sys-prefix tracer
   - jupyter nbextension enable --py --sys-prefix tracer
