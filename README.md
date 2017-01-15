@@ -1,4 +1,5 @@
 # tracer
+[![Build Status](https://travis-ci.org/sn0wle0pard/tracer.py.svg?branch=master)](https://travis-ci.org/sn0wle0pard/tracer.py)
 ![license](https://anaconda.org/sn0wle0pard/tracer.py/badges/license.svg)
 ![pypi](https://anaconda.org/sn0wle0pard/tracer.py/badges/installer/pypi.svg)
 ![anaconda](https://anaconda.org/sn0wle0pard/tracer.py/badges/version.svg)
