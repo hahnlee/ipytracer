@@ -123,14 +123,14 @@ with open(os.path.join(here, 'tracer', '_version.py')) as f:
     exec(f.read(), {}, version_ns)
 
 setup_args = {
-    'name': 'tracer',
+    'name': 'tracer.py',
     'version': version_ns['__version__'],
     'description': 'Algorithm Visualizer for Jupyter/IPython Notebook',
     'long_description': LONG_DESCRIPTION,
     'License': 'MIT License',
     'include_package_data': True,
     'data_files': [
-        ('share/jupyter/nbextensions/tracer', [
+        ('share/jupyter/nbextensions/tracerpy', [
             'tracer/static/extension.js',
             'tracer/static/index.js',
             'tracer/static/index.js.map'
@@ -150,7 +150,7 @@ setup_args = {
 
     'author': 'Han Lee',
     'author_email': 'dev.sn0wle0pard@gmail.com',
-    'url': 'https://github.com/sn0wle0pard/tracer',
+    'url': 'https://github.com/sn0wle0pard/tracerpy',
     'keywords': [
         'algorithm visualizer',
         'ipython',

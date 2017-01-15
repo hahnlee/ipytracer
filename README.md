@@ -1,5 +1,7 @@
 # tracer
-![status](https://img.shields.io/badge/status-unstable-red.svg)
+![license](https://anaconda.org/sn0wle0pard/tracer.py/badges/license.svg)
+![pypi](https://anaconda.org/sn0wle0pard/tracer.py/badges/installer/pypi.svg)
+![anaconda](https://anaconda.org/sn0wle0pard/tracer.py/badges/version.svg)
 
 Algorithm Visualizer for Jupyter/IPython Notebook.
 
@@ -21,9 +23,22 @@ Pre-Alpha
 Requirement
 - Jupyter/IPython Notebook
 
+To install use pip:
 ```console
-$ git clone https://github.com/sn0wle0pard/tracer.git
-$ cd tracer
+$ pip install tracer.py
+$ jupyter nbextension enable --py --sys-prefix tracer
+```
+
+Or:
+```
+$ pip install -i https://pypi.anaconda.org/sn0wle0pard/simple tracer.py
+$ jupyter nbextension enable --py --sys-prefix tracer
+```
+
+For a development installation (requires npm),
+```console
+$ git clone https://github.com/sn0wle0pard/tracer.py.git
+$ cd tracer.py
 $ pip install -e .
 $ jupyter nbextension install --py --symlink --sys-prefix tracer
 $ jupyter nbextension enable --py --sys-prefix tracer
@@ -34,7 +49,7 @@ $ jupyter nbextension enable --py --sys-prefix tracer
 
 https://youtu.be/vZQJ0Y3GtIs
 
-## imags
+## images
 
 ![BubbleSortInfo](src/bubble_info.png)
 

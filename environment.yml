@@ -1,6 +1,0 @@
-name: tracer
-channels:
-  - nodefaults
-  - conda-forge
-dependencies:
-  - tracer
