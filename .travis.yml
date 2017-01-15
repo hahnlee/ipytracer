@@ -1,4 +1,4 @@
-languagelanguage: python
+language: python
 sudo: true
 python:
   - 3.5
