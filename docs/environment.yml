@@ -1,0 +1,9 @@
+name: tracer-docs
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.5
+  - ipython=4.0.3  # https://github.com/ipython/ipython/issues/8733
+  - sphinx=1.5
+  - ipywidgets=5.1.5
