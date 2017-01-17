@@ -22,6 +22,7 @@ import sys
 # [read the docs](read-the-docs.readthedocs.org/en/latest/faq.html)
 from unittest.mock import MagicMock
 
+
 class Mock(MagicMock):
     @classmethod
     def __getattr__(cls, name):
@@ -86,7 +87,7 @@ release = VERSION
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
 language = None
-locale_dirs = ['locale/']
+locale_dirs = ['locale']
 gettext_compact = False
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:

@@ -137,7 +137,8 @@ setup_args = {
         ]),
     ],
     'install_requires': [
-        'ipywidgets>=5.1.5'
+        'ipywidgets>=5.1.5',
+        'unittest'
     ],
     'packages': find_packages(),
     'zip_safe': False,
