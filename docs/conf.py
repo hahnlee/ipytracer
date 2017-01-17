@@ -29,7 +29,7 @@ class Mock(MagicMock):
         return Mock()
 
 MOCK_MODULES = ['jinja2', 'IPython', 'ipywidgets']
-sys.modules.update((mod, Mock) for mod in MOCK_MODULES)
+sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 sys.path.insert(0, os.path.abspath('..'))
 from tracer import __version__ as VERSION
