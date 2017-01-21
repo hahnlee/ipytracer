@@ -1,2 +1,2 @@
-recursive-include tracer/static *.*
-recursive-include tracer/staticlab *.*
+recursive-include ipytracer/static *.*
+recursive-include ipytracer/staticlab *.*
