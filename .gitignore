@@ -8,7 +8,6 @@ develop-eggs
 .installed.cfg
 lib
 lib64
-.pypirc
 
 # Sphinx documentation
 docs/_build/
@@ -22,8 +21,8 @@ dist
 .idea/
 
 # Compiled javascript
-tracer/static/
-tracer/staticlab/
+ipytracer/static/
+ipytracer/staticlab/
 
 # Node modules
 node_modules

@@ -1,13 +1,13 @@
 {
-  "name": "tracer",
-  "version": "0.0.1",
+  "name": "ipytracer",
+  "version": "0.1.1",
   "description": "Algorithm Visualizer for Jupyter/IPython Notebook",
   "author": "Han Lee(sn0wle0pard)",
   "license": "MIT",
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sn0wle0pard/tracer.py.git"
+    "url": "https://github.com/sn0wle0pard/ipytracer.git"
   },
   "keywords": [
     "jupyter",

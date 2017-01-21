@@ -7,11 +7,11 @@ var tracer = require('./index');
 var jupyterlab_widgets = require('@jupyterlab/nbwidgets');
 
 module.exports = {
-  id: 'jupyter.extensions.tracer',
+  id: 'jupyter.extensions.ipytracer',
   requires: [jupyterlab_widgets.INBWidgetExtension],
   activate: function(app, widgets) {
       widgets.registerWidget({
-          name: 'tracer',
+          name: 'ipytracer',
           version: tracer.version,
           exports: tracer
       });

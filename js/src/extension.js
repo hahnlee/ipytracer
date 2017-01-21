@@ -9,7 +9,7 @@ if (window.require) {
     window.require.config({
         map: {
             "*" : {
-                "tracer": "nbextensions/tracer/index",
+                "tracer": "nbextensions/ipytracer/index",
                 "jupyter-js-widgets": "nbextensions/jupyter-js-widgets/extension"
             }
         }

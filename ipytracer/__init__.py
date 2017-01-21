@@ -2,12 +2,12 @@
 #  Created by sn0wle0pard
 
 """
-    tracer
-    ~~~~~~
+    ipytracer
+    ~~~~~~~~~
 
     Algorithm visualizer for Jupyter/IPython Notebook.
 
-    :copyright: (c) 2015 by Han Lee (sn0wle0pard).
+    :copyright: (c) 2015-2017 by Han Lee (sn0wle0pard).
     :license: MIT.
 """
 
@@ -26,7 +26,7 @@ def _jupyter_nbextension_paths():
     return [{
         'section': 'notebook',
         'src': 'static',
-        'dest': 'tracer',
-        'require': 'tracer/extension'
+        'dest': 'ipytracer',
+        'require': 'ipytracer/extension'
     }]
 

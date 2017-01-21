@@ -7,9 +7,9 @@ var loaders = [
 var buildExtension = require('@jupyterlab/extension-builder/lib/builder').buildExtension;
 
 buildExtension({
-    name: 'tracer',
+    name: 'ipytracer',
     entry: './src/labplugin',
-    outputDir: '../tracer/staticlab',
+    outputDir: '../ipytracer/staticlab',
     useDefaultLoaders: false,
     extractCSS: false,
     config: {
@@ -24,7 +24,7 @@ module.exports = [
         entry: './src/extension.js',
         output: {
             filename: 'extension.js',
-            path: '../tracer/static',
+            path: '../ipytracer/static',
             libraryTarget: 'amd'
         }
     },
@@ -32,7 +32,7 @@ module.exports = [
         entry: './src/index.js',
         output: {
             filename: 'index.js',
-            path: '../tracer/static',
+            path: '../ipytracer/static',
             libraryTarget: 'amd'
         },
         devtool: 'source-map',
@@ -41,7 +41,7 @@ module.exports = [
         },
         externals: ['jupyter-js-widgets']
     },
-    {// embeddable tracer bundle
+    {// embeddable ipytracer bundle
         entry: './src/index.js',
         output: {
             filename: 'index.js',

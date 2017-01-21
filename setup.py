@@ -72,8 +72,8 @@ class NPM(Command):
     node_modules = os.path.join(node_root, 'node_modules')
 
     targets = [
-        os.path.join(here, 'tracer', 'static', 'extension.js'),
-        os.path.join(here, 'tracer', 'static', 'index.js')
+        os.path.join(here, 'ipytracer', 'static', 'extension.js'),
+        os.path.join(here, 'ipytracer', 'static', 'index.js')
     ]
 
     def initialize_options(self):
@@ -119,26 +119,25 @@ class NPM(Command):
 
 
 version_ns = {}
-with open(os.path.join(here, 'tracer', '_version.py')) as f:
+with open(os.path.join(here, 'ipytracer', '_version.py')) as f:
     exec(f.read(), {}, version_ns)
 
 setup_args = {
-    'name': 'tracer.py',
+    'name': 'ipytracer',
     'version': version_ns['__version__'],
     'description': 'Algorithm Visualizer for Jupyter/IPython Notebook',
     'long_description': LONG_DESCRIPTION,
     'License': 'MIT License',
     'include_package_data': True,
     'data_files': [
-        ('share/jupyter/nbextensions/tracerpy', [
-            'tracer/static/extension.js',
-            'tracer/static/index.js',
-            'tracer/static/index.js.map'
+        ('share/jupyter/nbextensions/ipytracer', [
+            'ipytracer/static/extension.js',
+            'ipytracer/static/index.js',
+            'ipytracer/static/index.js.map'
         ]),
     ],
     'install_requires': [
-        'ipywidgets>=5.1.5',
-        'unittest'
+        'ipywidgets>=5.1.5'
     ],
     'packages': find_packages(),
     'zip_safe': False,
@@ -151,7 +150,7 @@ setup_args = {
 
     'author': 'Han Lee',
     'author_email': 'dev.sn0wle0pard@gmail.com',
-    'url': 'https://github.com/sn0wle0pard/tracerpy',
+    'url': 'https://github.com/sn0wle0pard/ipytracer',
     'keywords': [
         'algorithm visualizer',
         'ipython',
