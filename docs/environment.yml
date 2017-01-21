@@ -12,10 +12,10 @@ dependencies:
 - notebook>=4.2
 - sphinx>=1.4.6
 - ipykernel
-- ipytracer
 - pip:
   - docutils<0.13.1
   - jupyter_sphinx
+  - ipytracer
   - git+https://github.com/spatialaudio/nbsphinx.git#egg=nbsphinx
   - sphinx_rtd_theme==0.1.10-alpha
   - python-dateutil
