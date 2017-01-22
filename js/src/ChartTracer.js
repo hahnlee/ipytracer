@@ -47,6 +47,11 @@ var ChartTracerView = tracer.TracerView.extend({
         this.chartOption['data']['labels'] = this.model.get('labels');
     },
 
+    _data_change: function () {
+        this.tracerChart.config.data.datasets[0].data = this.model.get('data');
+        this.tracerChart.update();
+    },
+
     _selected_change: function () {
         var previous_visited = this.model.get('visited');
         var previous_selected = this.model.previous('selected');
@@ -58,7 +63,6 @@ var ChartTracerView = tracer.TracerView.extend({
         }
         this.backgroundColor[this.model.get('selected')] = this.model.get('visitedColor');
         this.tracerChart.config.data.datasets[0].backgroundColor = this.backgroundColor;
-        this.tracerChart.config.data.datasets[0].data = this.model.get('data');
         this.tracerChart.update();
     },
     

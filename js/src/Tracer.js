@@ -14,26 +14,20 @@ var TracerView = widgets.DOMWidgetView.extend({
         TracerView.__super__.render.apply(this, arguments);
         this._initialize_data();
         this._create_object();
-        this.listenTo(this.model, 'change:data', this.data_change, this);
+        this.listenTo(this.model, 'change:data', this._data_change, this);
         this.listenTo(this.model, 'change:selected', this._selected_change, this);
         this.listenTo(this.model, 'change:visited', this._visited_change, this);
-    },
-
-    data_change: function () {
-        if(this.model.previous('data').length != this.model.get('data').length){
-            this._data_update();
-        }
     },
 
     _initialize_data: function () {
 
     },
 
-    _create_object: function () {
+    _data_change: function () {
 
     },
 
-    _data_update: function () {
+    _create_object: function () {
 
     },
 
@@ -50,8 +44,8 @@ var TracerModel = widgets.DOMWidgetModel.extend({
     defaults: _.extend({}, widgets.DOMWidgetModel.prototype.defaults, {
         _view_name : 'TracerView',
         _model_name : 'TracerModel',
-        _view_module : 'tracer',
-        _model_module : 'tracer',
+        _view_module : 'ipytracer',
+        _model_module : 'ipytracer',
 
         _id: '',
         data: [],

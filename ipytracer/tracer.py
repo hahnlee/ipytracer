@@ -27,8 +27,8 @@ class Tracer(DOMWidget):
     data = List().tag(sync=True)
     _id = Unicode().tag(sync=True)
 
-    _view_module = Unicode('tracer').tag(sync=True)
-    _model_module = Unicode('tracer').tag(sync=True)
+    _view_module = Unicode('ipytracer').tag(sync=True)
+    _model_module = Unicode('ipytracer').tag(sync=True)
 
     notified = Int(-1).tag(sync=True)
     selected = Int(-1).tag(sync=True)

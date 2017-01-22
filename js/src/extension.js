@@ -1,5 +1,5 @@
-// This file came from
-// https://github.com/jupyter/widget-cookiecutter/blob/master/{{cookiecutter.github_project_name}}/js/src/extension.js
+// Copyright (c) Han Lee.
+// Distributed under the terms of the Modified MIT License.
 // This file contains the javascript that is run when the notebook is loaded.
 // It contains some requirejs configuration and the `load_ipython_extension`
 // which is required for any notebook extension.
@@ -9,7 +9,7 @@ if (window.require) {
     window.require.config({
         map: {
             "*" : {
-                "tracer": "nbextensions/ipytracer/index",
+                "ipytracer": "nbextensions/ipytracer/index",
                 "jupyter-js-widgets": "nbextensions/jupyter-js-widgets/extension"
             }
         }

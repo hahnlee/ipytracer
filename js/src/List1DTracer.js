@@ -28,13 +28,17 @@ var List1DTracerView = tracer.TracerView.extend({
         }
     },
 
+    _data_change: function () {
+        var index_visited = this.model.get('selected');
+        var selectdTD = this.table.getElementsByClassName('col-' + index_visited)[0];
+        selectdTD.textContent = this.model.get('data')[index_visited];
+    },
+
     _selected_change: function () {
         var previous_visited = this.model.get('visited');
         var previous_selected = this.model.previous('selected');
         var index_visited = this.model.get('selected');
         var _data = this.model.get('data');
-        console.log(_data);
-        console.log(index_visited);
         if(previous_visited != -1){
             this.table.getElementsByClassName('col-' + previous_visited)[0].style.backgroundColor = this.model.get('defaultColor');
         }

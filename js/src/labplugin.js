@@ -2,7 +2,7 @@
 * This file came from
 * https://github.com/ellisonbg/ipyleaflet/blob/master/js/src/labplugin.js
 * */
-var tracer = require('./index');
+var ipytracer = require('./index');
 
 var jupyterlab_widgets = require('@jupyterlab/nbwidgets');
 
@@ -12,8 +12,8 @@ module.exports = {
   activate: function(app, widgets) {
       widgets.registerWidget({
           name: 'ipytracer',
-          version: tracer.version,
-          exports: tracer
+          version: ipytracer.version,
+          exports: ipytracer
       });
   },
   autoStart: true
