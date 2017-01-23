@@ -55,15 +55,16 @@ https://youtu.be/vZQJ0Y3GtIs
 
 You can see [here](https://github.com/sn0wle0pard/tracer/tree/master/example)
 
-ThirdParty Libraries
+Third Party Libraries
 -----
-* Chart.js - https://ipython.org
-* Ipython - https://ipython.org
+* Chart.js - http://www.chartjs.org
+* IPython - https://ipython.org
 * ipywidgets - https://ipywidgets.readthedocs.io
-* Jupyter notebook extensions - http://jupyter-contrib-nbextensions.readthedocs.io
+* traitlets - https://traitlets.readthedocs.io/
 * Underscore - http://underscorejs.org
 * Webpack - https://webpack.github.io
 
+See Also [NOTICE.md](NOTICE.md)
 
 Author
 ------

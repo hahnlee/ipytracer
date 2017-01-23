@@ -61,7 +61,7 @@ var ChartTracerView = tracer.TracerView.extend({
         if(previous_selected != -1){
             this.backgroundColor[previous_selected] = this.model.get('defaultColor');
         }
-        this.backgroundColor[this.model.get('selected')] = this.model.get('visitedColor');
+        this.backgroundColor[this.model.get('selected')] = this.model.get('selectedColor');
         this.tracerChart.config.data.datasets[0].backgroundColor = this.backgroundColor;
         this.tracerChart.update();
     },
@@ -75,7 +75,7 @@ var ChartTracerView = tracer.TracerView.extend({
         if(previous_selected != -1){
             this.backgroundColor[previous_selected] = this.model.get('defaultColor');
         }
-        this.backgroundColor[this.model.get('visited')] = this.model.get('selectedColor');
+        this.backgroundColor[this.model.get('visited')] = this.model.get('visitedColor');
         this.tracerChart.config.data.datasets[0].backgroundColor = this.backgroundColor;
         this.tracerChart.update();
     }
