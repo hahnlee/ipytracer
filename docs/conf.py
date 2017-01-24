@@ -436,3 +436,7 @@ epub_exclude_files = ['search.html']
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/': None}
+
+# i18n
+locale_dirs = ['locale']
+gettext_compact = True

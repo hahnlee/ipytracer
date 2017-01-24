@@ -1,0 +1,61 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Han Lee
+# This file is distributed under the same license as the ipytracer package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ipytracer 0.1.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-24 21:04+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: ../../ipytracer.tracer.rst:2
+msgid "ipytracer.tracer module"
+msgstr ""
+
+#: ipytracer.tracer.ChartTracer:1 ipytracer.tracer.List1DTracer:1 of
+msgid "Bases: :class:`ipytracer.tracer.Tracer`"
+msgstr ""
+
+#: ipytracer.tracer.ChartTracer:1 of
+msgid "This tracer representing a one-dimensional list as a chart diagram"
+msgstr ""
+
+#: ipytracer.tracer.ChartTracer:3 ipytracer.tracer.List1DTracer:3
+#: ipytracer.tracer.Tracer:5 of
+msgid ""
+"@:param Data to track @:param Animation delay in milliseconds for each "
+"event (default 0.25)"
+msgstr ""
+
+#: ipytracer.tracer.ChartTracer.labels:1 ipytracer.tracer.Tracer.data:1 of
+msgid "An instance of a Python list."
+msgstr ""
+
+#: ipytracer.tracer.List1DTracer:1 of
+msgid "This tracer representing a one-dimensional list as a HTML Table"
+msgstr ""
+
+#: ipytracer.tracer.Tracer:1 of
+msgid "Bases: :class:`ipywidgets.widgets.domwidget.DOMWidget`"
+msgstr ""
+
+#: ipytracer.tracer.Tracer:1 of
+msgid ""
+"Abstract base class for Tracers. Tracer with specific codes are "
+"specializations of this class. Tracer class is also eventful list."
+msgstr ""
+
+#: ipytracer.tracer.Tracer.notified:1 ipytracer.tracer.Tracer.selected:1
+#: ipytracer.tracer.Tracer.visited:1 of
+msgid "An int trait."
+msgstr ""
+

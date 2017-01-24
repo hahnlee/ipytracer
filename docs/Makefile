@@ -223,3 +223,12 @@ dummy:
 	$(SPHINXBUILD) -b dummy $(ALLSPHINXOPTS) $(BUILDDIR)/dummy
 	@echo
 	@echo "Build finished. Dummy builder generates no files."
+
+extract_i18n:
+	make html
+	make gettext
+	sphinx-intl update -p _build/locale -l ko
+
+update_i18n:
+	sphinx-intl build
+	make -e SPHINXOPTS="-D language='ko'" html
