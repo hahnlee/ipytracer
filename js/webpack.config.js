@@ -1,3 +1,7 @@
+// Copyright (c) Han Lee.
+// Copyright (c) IPython Development Team.
+// Distributed under the terms of the Modified BSD License.
+
 var version = require('./package.json').version;
 
 var loaders = [

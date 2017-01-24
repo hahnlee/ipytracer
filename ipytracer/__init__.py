@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
-#  Created by sn0wle0pard
+# Copyright (c) Han Lee.
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
 
 """
     ipytracer
@@ -11,18 +13,22 @@
     :license: MIT.
 """
 
-
+from .tracer import *
 from ._version import __version__
 
-from .tracer import *
-
-__author__ = 'Han Lee (@sn0wle0pard)'
+__author__ = 'Han Lee (sn0wle0pard)'
 __version__ = __version__
 __copyright__ = 'Copyright (c) 2016 Han Lee'
-__license__ = 'MIT'
+__license__ = 'BSD'
 
 
 def _jupyter_nbextension_paths():
+    """
+    Jupyter Extension points
+    see also
+    http://jupyter-notebook.rtfd.io/en/latest/examples/Notebook/Distributing Jupyter Extensions as Python Packages.html
+    :return: information of notebook extension paths
+    """
     return [{
         'section': 'notebook',
         'src': 'static',

@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "description": "Algorithm Visualizer for Jupyter/IPython Notebook",
   "author": "Han Lee(sn0wle0pard)",
-  "license": "MIT",
+  "license": "BSD",
   "main": "src/index.js",
   "repository": {
     "type": "git",

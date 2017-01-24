@@ -1,3 +1,6 @@
+// Copyright (c) Han Lee.
+// Distributed under the terms of the Modified BSD License.
+
 var loadedModules = [
     require('./ChartTracer.js'),
     require('./Tracer'),

@@ -1,6 +1,7 @@
-/**
- * Created by sn0wle0pard on 2017. 1. 1..
- */
+// Copyright (c) Han Lee.
+// Copyright (c) IPython Development Team.
+// Distributed under the terms of the Modified BSD License.
+
 // Setup notebook base URL
 __webpack_public_path__ = document.querySelector('body').getAttribute('data-base-url') + 'nbextensions/ipytracer/';
 

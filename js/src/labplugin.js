@@ -1,7 +1,7 @@
-/*
-* This file came from
-* https://github.com/ellisonbg/ipyleaflet/blob/master/js/src/labplugin.js
-* */
+// Copyright (c) Han Lee.
+// Distributed under the terms of the Modified BSD License.
+// https://github.com/ellisonbg/ipyleaflet/blob/master/js/src/labplugin.js
+
 var ipytracer = require('./index');
 
 var jupyterlab_widgets = require('@jupyterlab/nbwidgets');
