@@ -8,6 +8,5 @@ dependencies:
   - traittypes
   - widgetsnbextension
   - pip:
-    - ipytracer
     - jupyter_sphinx
     - ipywidgets>=6.0.0b6
