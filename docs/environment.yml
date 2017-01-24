@@ -1,13 +1,13 @@
 name: ipytracer_docs
 channels:
- - conda-forge
- - defaults
+  - conda-forge
+  - defaults
 dependencies:
- - python=3.5
- - traitlets
- - traittypes
- - widgetsnbextension
- - ipytracer
- - pip:
+  - python=3.5
+  - traitlets
+  - traittypes
+  - widgetsnbextension
+  - pip:
+    - ipytracer
     - jupyter_sphinx
     - ipywidgets>=6.0.0b6
