@@ -164,7 +164,7 @@ setup_args = {
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
 
-        'License :: OSI Approved :: MIT License',
+        'License :: OSI Approved :: BSD License',
 
         'Topic :: Multimedia :: Graphics',
         'Topic :: Scientific/Engineering :: Visualization',

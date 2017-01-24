@@ -10,7 +10,7 @@
     Algorithm visualizer for Jupyter/IPython Notebook.
 
     :copyright: (c) 2015-2017 by Han Lee (sn0wle0pard).
-    :license: MIT.
+    :license: BSD.
 """
 
 from .tracer import *
