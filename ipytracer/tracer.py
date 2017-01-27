@@ -20,8 +20,10 @@ class Tracer(DOMWidget):
     Tracer with specific codes are specializations of this class.
     Tracer class is also eventful list.
 
-    @:param Data to track
-    @:param Animation delay in milliseconds for each event (default 0.25)
+    :type data: list
+    :param data Data to track
+    :type delay: float
+    :param delay Animation delay in milliseconds for each event (default 0.25)
     """
 
     data = List().tag(sync=True)
@@ -104,8 +106,8 @@ class ChartTracer(Tracer):
     """
     This tracer representing a one-dimensional list as a chart diagram
 
-    @:param Data to track
-    @:param Animation delay in milliseconds for each event (default 0.25)
+    :param data to track
+    :param delay Animation delay in milliseconds for each event (default 0.25)
     """
 
     _view_name = Unicode('ChartTracerView').tag(sync=True)
@@ -121,13 +123,35 @@ class ChartTracer(Tracer):
         self.labels = [i for i in range(len(self.data))]
 
 
+class DirectedGraphTracer(Tracer):
+    """
+    Graph Data Type Visualization Tracer
+    """
+
+    _view_name = Unicode('DirectedGraphTracerView').tag(sync=True)
+    _model_name = Unicode('DirectedGraphTracerModel').tag(sync=True)
+
+    def __init__(self, data, delay=0.25):
+        super(DirectedGraphTracer, self).__init__(data, delay)
+
+
+class TreeTracer(Tracer):
+    """
+    Tree Data Type Visualization Tracer
+    """
+
+    _view_name = Unicode('TreeTracerView').tag(sync=True)
+    _model_name = Unicode('TreeTracerModel').tag(sync=True)
+
+    def __init__(self, data, delay=0.25):
+        super(TreeTracer, self).__init__(data, delay)
+
+
 class List1DTracer(Tracer):
     """
     This tracer representing a one-dimensional list as a HTML Table
-
-    @:param Data to track
-    @:param Animation delay in milliseconds for each event (default 0.25)
     """
+
     _view_name = Unicode('List1DTracerView').tag(sync=True)
     _model_name = Unicode('List1DTracerModel').tag(sync=True)
 
