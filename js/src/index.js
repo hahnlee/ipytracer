@@ -2,9 +2,11 @@
 // Distributed under the terms of the Modified BSD License.
 
 var loadedModules = [
-    require('./ChartTracer.js'),
-    require('./Tracer'),
-    require('./List1DTracer.js')
+    require('./chart.js'),
+    require('./directed_graph.js'),
+    require('./tracer.js'),
+    require('./tree.js'),
+    require('./list1D.js')
 ];
 
 for (var i in loadedModules) {

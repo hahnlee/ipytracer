@@ -1,7 +1,9 @@
 // Copyright (c) Han Lee.
 // Distributed under the terms of the Modified BSD License.
 
-var tracer = require('./Tracer');
+'use strict';
+
+var tracer = require('./tracer');
 var _ = require('underscore');
 
 var List1DTracerView = tracer.TracerView.extend({
