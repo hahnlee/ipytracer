@@ -1,23 +1,20 @@
 // Copyright (c) Han Lee.
 // Distributed under the terms of the Modified BSD License.
 
-'use strict';
+import { TracerView, TracerModel } from './tracer';
+import * as _ from 'underscore';
 
-var tracer = require('./tracer');
-var _ = require('underscore');
+export
+class TreeTracerView extends TracerView {
 
-var TreeTracerView = tracer.TracerView.extend({
+}
 
-});
-
-var TreeTracerModel = tracer.TracerModel.extend({
-    defaults: _.extend({}, tracer.TracerModel.prototype.defaults, {
-        _view_name : 'TreeTracerView',
-        _model_name : 'TreeTracerModel'
-    })
-});
-
-module.exports = {
-    TreeTracerView: TreeTracerView,
-    TreeTracerModel: TreeTracerModel
-};
+export
+class TreeTracerModel extends TracerModel {
+    defaults() {
+        return _.extend(super.defaults(), {
+            _view_name: 'TreeTracerView',
+            _model_name: 'TreeTracerModel'
+        });
+    }
+}

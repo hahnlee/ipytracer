@@ -1,23 +1,21 @@
 // Copyright (c) Han Lee.
 // Distributed under the terms of the Modified BSD License.
 
-'use strict';
+import { TracerView, TracerModel } from './tracer';
+import * as _ from 'underscore';
 
-var tracer = require('./tracer');
-var _ = require('underscore');
+export
+class DirectedGraphTracerView extends TracerView {
 
-var DirectedGraphTracerView = tracer.TracerView.extend({
+}
 
-});
+export
+class DirectedGraphTracerModel extends TracerModel{
+    defaults() {
+        return _.extend(super.defaults(), {
+            _view_name: 'DirectedGraphTracerView',
+            _model_name: 'DirectedGraphTracerModel'
+        });
+    }
+}
 
-var DirectedGraphTracerModel = tracer.TracerModel.extend({
-    defaults: _.extend({}, tracer.TracerModel.prototype.defaults, {
-        _view_name : 'DirectedGraphTracerView',
-        _model_name : 'DirectedGraphTracerModel'
-    })
-});
-
-module.exports = {
-    DirectedGraphTracerView: DirectedGraphTracerView,
-    DirectedGraphTracerModel: DirectedGraphTracerModel
-};

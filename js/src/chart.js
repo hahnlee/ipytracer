@@ -1,23 +1,23 @@
 // Copyright (c) Han Lee.
 // Distributed under the terms of the Modified BSD License.
 
-'use strict';
+import Chart from 'chart.js';
+import { TracerView, TracerModel } from './tracer';
+import * as _ from 'underscore';
 
-var tracer = require('./tracer');
-var _ = require('underscore');
-var Chart = require('chart.js');
 
-var ChartTracerView = tracer.TracerView.extend({
+export
+class ChartTracerView extends TracerView {
 
-    _create_object: function () {
+    _create_object() {
         // Create canvas: chart.js works on canvas
         this.ctx = document.createElement('canvas');
         this.el.appendChild(this.ctx);
         // set chart
         this.tracerChart = new Chart(this.ctx, this.chartOption);
-    },
+    }
 
-    _initialize_data: function () {
+    _initialize_data() {
         // default chart.js option
         this.chartOption = {
             type: 'bar',
@@ -44,30 +44,30 @@ var ChartTracerView = tracer.TracerView.extend({
         };
 
         // set data
-        var data = this.model.get('data');
+        let data = this.model.get('data');
         this.chartOption['data']['datasets'][0]['data'] = data;
 
         // set chart background color
         this.backgroundColor = [];
-        for (var i in data) {
+        for (let i in data) {
             this.backgroundColor[i] = this.model.get('defaultColor');
         }
         this.chartOption['data']['datasets'][0]['backgroundColor'] = this.backgroundColor;
 
         // set label
         this.chartOption['data']['labels'] = this.model.get('labels');
-    },
+    }
 
-    _data_change: function () {
+    _data_change() {
         // update data
         this.tracerChart.config.data.datasets[0].data = this.model.get('data');
         this.tracerChart.update();
-    },
+    }
 
-    _selected_change: function () {
+    _selected_change() {
         // clear background
-        var previous_visited = this.model.get('visited');
-        var previous_selected = this.model.previous('selected');
+        let previous_visited = this.model.get('visited');
+        let previous_selected = this.model.previous('selected');
         if(previous_visited != -1){
             this.backgroundColor[previous_visited] = this.model.get('defaultColor');
         }
@@ -79,12 +79,12 @@ var ChartTracerView = tracer.TracerView.extend({
         this.backgroundColor[this.model.get('selected')] = this.model.get('selectedColor');
         this.tracerChart.config.data.datasets[0].backgroundColor = this.backgroundColor;
         this.tracerChart.update();
-    },
+    }
     
-    _visited_change: function () {
+    _visited_change() {
         // clear background
-        var previous_visited = this.model.previous('visited');
-        var previous_selected = this.model.get('selected');
+        let previous_visited = this.model.previous('visited');
+        let previous_selected = this.model.get('selected');
         if(previous_visited != -1){
             this.backgroundColor[previous_visited] = this.model.get('defaultColor');
         }
@@ -97,16 +97,14 @@ var ChartTracerView = tracer.TracerView.extend({
         this.tracerChart.config.data.datasets[0].backgroundColor = this.backgroundColor;
         this.tracerChart.update();
     }
-});
+}
 
-var ChartTracerModel = tracer.TracerModel.extend({
-    defaults: _.extend({}, tracer.TracerModel.prototype.defaults, {
-        _view_name : 'ChartTracerView',
-        _model_name : 'ChartTracerModel'
-    })
-});
-
-module.exports = {
-    ChartTracerView: ChartTracerView,
-    ChartTracerModel: ChartTracerModel
-};
+export
+class ChartTracerModel extends TracerModel{
+    defaults() {
+        return _.extend(super.defaults(), {
+            _view_name: 'ChartTracerView',
+            _model_name: 'ChartTracerModel'
+        });
+    }
+}
