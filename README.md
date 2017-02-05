@@ -30,7 +30,7 @@ $ pip install ipytracer
 $ jupyter nbextension enable --py --sys-prefix ipytracer
 ```
 
-For a development installation (requires npm),
+For a development installation (requires npm and babel),
 ```console
 $ git clone https://github.com/sn0wle0pard/ipytracer.git
 $ cd ipytracer

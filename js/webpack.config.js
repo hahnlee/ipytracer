@@ -25,15 +25,15 @@ buildExtension({
 
 module.exports = [
     {// Notebook extension
-        entry: './src/extension.js',
+        entry: './lib/extension.js',
         output: {
             filename: 'extension.js',
             path: '../ipytracer/static',
             libraryTarget: 'amd'
         }
     },
-    {// jupyter-leaflet bundle for the notebook
-        entry: './src/index.js',
+    {// ipytracer for the notebook
+        entry: './lib/index.js',
         output: {
             filename: 'index.js',
             path: '../ipytracer/static',
@@ -46,7 +46,7 @@ module.exports = [
         externals: ['jupyter-js-widgets']
     },
     {// embeddable ipytracer bundle
-        entry: './src/index.js',
+        entry: './lib/index.js',
         output: {
             filename: 'index.js',
             path: './dist/',
