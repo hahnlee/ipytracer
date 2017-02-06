@@ -26,6 +26,9 @@ class TracerView extends widgets.DOMWidgetView {
 
         // listen visited index change
         this.listenTo(this.model, 'change:visited', this._visited_change, this);
+        this.displayed.then(
+            this.post_render()
+        );
     }
 
     _initialize_data() {
@@ -70,6 +73,10 @@ class TracerView extends widgets.DOMWidgetView {
      * e.g. When __getitem__ method run in Python Tracer objects
      */
     _visited_change() {
+
+    }
+
+    post_render() {
 
     }
 }

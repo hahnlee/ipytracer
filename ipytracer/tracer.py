@@ -116,7 +116,7 @@ class ChartTracer(Tracer):
 
     @default('layout')
     def _default_layout(self):
-        return Layout(height='300px')
+        return Layout(width='100%', height='300px')
 
     def __init__(self, data, delay=0.25, **kwargs):
         super(ChartTracer, self).__init__(data, delay, **kwargs)
@@ -130,6 +130,10 @@ class DirectedGraphTracer(Tracer):
 
     _view_name = Unicode('DirectedGraphTracerView').tag(sync=True)
     _model_name = Unicode('DirectedGraphTracerModel').tag(sync=True)
+
+    @default('layout')
+    def _default_layout(self):
+        return Layout(width='100%', height='300px')
 
     def __init__(self, data, delay=0.25):
         super(DirectedGraphTracer, self).__init__(data, delay)
