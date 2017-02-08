@@ -31,10 +31,11 @@ $ jupyter nbextension enable --py --sys-prefix ipytracer
 ```
 
 For a development installation (requires npm and babel),
+
 Pre installation
 ```console
 $ npm install -g webpack
-$ npm install -g babel
+$ npm install -g babel-cli
 ```
 Installation
 ```console
