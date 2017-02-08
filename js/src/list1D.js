@@ -72,12 +72,9 @@ class List1DTracerView extends TracerView {
 
 }
 
-export
-class List1DTracerModel extends TracerModel{
-    defaults() {
-        return _.extend(super.defaults(), {
-            _view_name: 'List1DTracerView',
-            _model_name: 'List1DTracerModel'
-        });
-    }
-}
+export var List1DTracerModel = TracerModel.extend({
+    defaults: _.extend({}, TracerModel.prototype.defaults, {
+        _view_name: 'List1DTracerView',
+        _model_name: 'List1DTracerModel'
+    })
+});
