@@ -6,7 +6,8 @@ var version = require('./package.json').version;
 
 var loaders = [
     { test: /\.css$/, loader: "style-loader!css-loader" },
-    { test: /\.json$/, loader: 'json-loader' }
+    { test: /\.json$/, loader: 'json-loader' },
+    { test: /\.js$/, loader: 'babel-loader?presets[]=es2015' }
 ];
 
 var buildExtension = require('@jupyterlab/extension-builder/lib/builder').buildExtension;
@@ -26,7 +27,7 @@ buildExtension({
 
 module.exports = [
     {// Notebook extension
-        entry: './lib/extension.js',
+        entry: './src/extension.js',
         output: {
             filename: 'extension.js',
             path: '../ipytracer/static',
@@ -34,7 +35,7 @@ module.exports = [
         }
     },
     {// ipytracer for the notebook
-        entry: './lib/index.js',
+        entry: './src/index.js',
         output: {
             filename: 'index.js',
             path: '../ipytracer/static',
@@ -47,7 +48,7 @@ module.exports = [
         externals: ['jupyter-js-widgets']
     },
     {// embeddable ipytracer bundle
-        entry: './lib/index.js',
+        entry: './src/index.js',
         output: {
             filename: 'index.js',
             path: './dist/',

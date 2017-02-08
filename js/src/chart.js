@@ -99,12 +99,9 @@ class ChartTracerView extends TracerView {
     }
 }
 
-export
-class ChartTracerModel extends TracerModel{
-    defaults() {
-        return _.extend(super.defaults(), {
-            _view_name: 'ChartTracerView',
-            _model_name: 'ChartTracerModel'
-        });
-    }
-}
+export var ChartTracerModel = TracerModel.extend({
+    defaults: _.extend({}, TracerModel.prototype.defaults, {
+        _view_name: 'ChartTracerView',
+        _model_name: 'ChartTracerModel'
+    })
+});

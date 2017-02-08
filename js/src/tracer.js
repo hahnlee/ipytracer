@@ -4,8 +4,7 @@
 import * as widgets from 'jupyter-js-widgets';
 import * as _ from 'underscore';
 
-export
-class TracerView extends widgets.DOMWidgetView {
+export class TracerView extends widgets.DOMWidgetView {
 
     initialize(parameters) {
         super.initialize(parameters);
@@ -84,28 +83,25 @@ class TracerView extends widgets.DOMWidgetView {
 /**
  * Base TracerModels, Other Tracers overload this object to create their own Model.
  */
-export
-class TracerModel extends widgets.DOMWidgetModel{
-    defaults() {
-        return _.extend(super.defaults(), {
-            _view_name: 'TracerView',
-            _model_name: 'TracerModel',
-            _view_module: 'ipytracer',
-            _model_module: 'ipytracer',
+export var TracerModel = widgets.DOMWidgetModel.extend({
+    defaults: _.extend({}, widgets.DOMWidgetModel.prototype.defaults, {
+        _view_name: 'TracerView',
+        _model_name: 'TracerModel',
+        _view_module: 'ipytracer',
+        _model_module: 'ipytracer',
 
-            _id: '',
-            data: [],
+        _id: '',
+        data: [],
 
-            // Index of data where event occurred
-            notified: -1,
-            selected: -1,
-            visited: -1,
+        // Index of data where event occurred
+        notified: -1,
+        selected: -1,
+        visited: -1,
 
-            // Base color of Tracers
-            defaultColor: '#bdbdbd',
-            notifiedColor: '#37D242',
-            selectedColor: '#2962ff',
-            visitedColor: '#f50057'
-        });
-    }
-}
+        // Base color of Tracers
+        defaultColor: '#bdbdbd',
+        notifiedColor: '#37D242',
+        selectedColor: '#2962ff',
+        visitedColor: '#f50057'
+    })
+});

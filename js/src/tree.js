@@ -9,12 +9,9 @@ class TreeTracerView extends TracerView {
 
 }
 
-export
-class TreeTracerModel extends TracerModel {
-    defaults() {
-        return _.extend(super.defaults(), {
-            _view_name: 'TreeTracerView',
-            _model_name: 'TreeTracerModel'
-        });
-    }
-}
+export var TreeTracerModel = TracerModel.extend({
+    defaults: _.extend({}, TracerModel.prototype.defaults, {
+        _view_name: 'TreeTracerView',
+        _model_name: 'TreeTracerModel'
+    })
+});
