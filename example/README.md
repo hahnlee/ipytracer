@@ -1,4 +1,4 @@
 # Example
 * Sort
-    * [Bubble Sort](Bubble.ipynb)
-    * [Insertion Sort](Insertion.ipynb)
+    * [Bubble Sort](sort/Bubble.ipynb)
+    * [Insertion Sort](sort/Insertion.ipynb)
