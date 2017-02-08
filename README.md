@@ -22,7 +22,7 @@ Pre-Alpha
 
 # Installation
 Requirement
-- Jupyter/IPython Notebook
+- Jupyter/IPython Notebook (Python3.x)
 
 To install use pip:
 ```console
@@ -31,6 +31,12 @@ $ jupyter nbextension enable --py --sys-prefix ipytracer
 ```
 
 For a development installation (requires npm and babel),
+Pre installation
+```console
+$ npm install -g webpack
+$ npm install -g babel
+```
+Installation
 ```console
 $ git clone https://github.com/sn0wle0pard/ipytracer.git
 $ cd ipytracer
