@@ -2,12 +2,11 @@
 // Distributed under the terms of the Modified BSD License.
 
 import Chart from 'chart.js';
-import { TracerView, TracerModel } from './tracer';
+import {TracerView, TracerModel} from './tracer';
 import * as _ from 'underscore';
 
 
-export
-class ChartTracerView extends TracerView {
+export class ChartTracerView extends TracerView {
 
     _create_object() {
         // Create canvas: chart.js works on canvas
@@ -68,10 +67,10 @@ class ChartTracerView extends TracerView {
         // clear background
         let previous_visited = this.model.get('visited');
         let previous_selected = this.model.previous('selected');
-        if(previous_visited != -1){
+        if (previous_visited != -1) {
             this.backgroundColor[previous_visited] = this.model.get('defaultColor');
         }
-        if(previous_selected != -1){
+        if (previous_selected != -1) {
             this.backgroundColor[previous_selected] = this.model.get('defaultColor');
         }
 
@@ -80,15 +79,15 @@ class ChartTracerView extends TracerView {
         this.tracerChart.config.data.datasets[0].backgroundColor = this.backgroundColor;
         this.tracerChart.update();
     }
-    
+
     _visited_change() {
         // clear background
         let previous_visited = this.model.previous('visited');
         let previous_selected = this.model.get('selected');
-        if(previous_visited != -1){
+        if (previous_visited != -1) {
             this.backgroundColor[previous_visited] = this.model.get('defaultColor');
         }
-        if(previous_selected != -1){
+        if (previous_selected != -1) {
             this.backgroundColor[previous_selected] = this.model.get('defaultColor');
         }
 

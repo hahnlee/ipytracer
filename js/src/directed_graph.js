@@ -6,40 +6,15 @@
 // Copyright (c) 2016 Jason Park
 // Distributed under the terms of the Modified MIT License.
 
+import * as d3 from "d3";
 import {TracerView, TracerModel} from './tracer';
 import * as _ from 'underscore';
 
 export class DirectedGraphTracerView extends TracerView {
     _create_object() {
+        this.el.className = "ipytracer-graph";
     }
 
-    _initialize_data() {
-    }
-
-
-    n(v) {
-        return 'n' + v;
-    }
-
-    e(v1, v2) {
-        return 'e' + v1 + '_' + v2;
-    }
-
-    getColor(edge, source, target, settings) {
-    }
-
-    resize() {
-    }
-
-    refresh() {
-    }
-
-    setData(undirected) {
-    }
-
-
-    post_render() {
-    }
 }
 
 export var DirectedGraphTracerModel = TracerModel.extend({

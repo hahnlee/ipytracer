@@ -1,11 +1,10 @@
 // Copyright (c) Han Lee.
 // Distributed under the terms of the Modified BSD License.
 
-import { TracerView, TracerModel } from './tracer';
+import {TracerView, TracerModel} from './tracer';
 import * as _ from 'underscore';
 
-export
-class List1DTracerView extends TracerView {
+export class List1DTracerView extends TracerView {
 
     _initialize_data() {
         this.table = document.createElement('table');
@@ -20,9 +19,9 @@ class List1DTracerView extends TracerView {
         this.table.appendChild(tr);
 
         // column settings in the table
-        for(let i in data){
+        for (let i in data) {
             let td = document.createElement("TD");
-            td.setAttribute('class', 'col-'+i);
+            td.setAttribute('class', 'col-' + i);
             // FIXME: It will be change via using css
             td.setAttribute('style', 'color: white; padding: 0.5em');
             td.style.backgroundColor = this.model.get('defaultColor');
@@ -42,10 +41,10 @@ class List1DTracerView extends TracerView {
         // clear background
         let previous_visited = this.model.get('visited');
         let previous_selected = this.model.previous('selected');
-        if(previous_visited != -1){
+        if (previous_visited != -1) {
             this.table.getElementsByClassName('col-' + previous_visited)[0].style.backgroundColor = this.model.get('defaultColor');
         }
-        if(previous_selected != -1) {
+        if (previous_selected != -1) {
             this.table.getElementsByClassName('col-' + previous_selected)[0].style.backgroundColor = this.model.get('defaultColor');
         }
 
@@ -58,10 +57,10 @@ class List1DTracerView extends TracerView {
         // clear background
         let previous_visited = this.model.previous('visited');
         let previous_selected = this.model.get('selected');
-        if(previous_visited != -1){
+        if (previous_visited != -1) {
             this.table.getElementsByClassName('col-' + previous_visited)[0].style.backgroundColor = this.model.get('defaultColor');
         }
-        if(previous_selected != -1){
+        if (previous_selected != -1) {
             this.table.getElementsByClassName('col-' + previous_selected)[0].style.backgroundColor = this.model.get('defaultColor');
         }
 
