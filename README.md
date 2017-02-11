@@ -50,11 +50,24 @@ $ jupyter nbextension enable --py --sys-prefix ipytracer
 
 https://youtu.be/vZQJ0Y3GtIs
 
-## images
+## Bubble Sort
 
-![BubbleSortInfo](src/bubble_info.png)
+```python
+import ipytracer
+from IPython.core.display import display
 
-![BubbleSortCode](src/bubble_code.png)
+def bubble_sort(unsorted_list):
+    x = ipytracer.ChartTracer(unsorted_list)
+    display(x)
+    length = len(x)-1
+    for i in range(length):
+        for j in range(length-i):
+            if x[j] > x[j+1]:
+                x[j], x[j+1] = x[j+1], x[j]
+    return x.data
+
+bubble_sort([6,4,7,9,3,5,1,8,2])
+```
 
 ![BubbleSortWork](src/bubble.gif)
 

@@ -7,34 +7,47 @@ import * as _ from 'underscore';
 export class List1DTracerView extends TracerView {
 
     _initialize_data() {
-        this.table = document.createElement('table');
+        this.list = document.createElement('div');
         this._id = this.model.get('_id');
-        this.table.setAttribute('id', this._id);
-        this.el.appendChild(this.table);
+        this.list.setAttribute('id', this._id);
+        this.list.className = 'ipytracer-list';
+        this.el.appendChild(this.list);
     }
 
     _create_object() {
-        let data = this.model.get('data');
-        let tr = document.createElement("TR");
-        this.table.appendChild(tr);
+        const data = this.model.get('data');
+
+        // clean child
+        while (this.list.firstChild) {
+            this.list.removeChild(this.list.firstChild);
+        }
 
         // column settings in the table
         for (let i in data) {
-            let td = document.createElement("TD");
-            td.setAttribute('class', 'col-' + i);
-            // FIXME: It will be change via using css
-            td.setAttribute('style', 'color: white; padding: 0.5em');
-            td.style.backgroundColor = this.model.get('defaultColor');
-            let cell = document.createTextNode(data[i]);
-            td.appendChild(cell);
-            tr.appendChild(td);
+            let cell = document.createElement("div");
+            cell.className = 'ipytracer-cell';
+            cell.id = this.col(i);
+            cell.style.backgroundColor = this.model.get('defaultColor');
+            cell.textContent = data[i];
+            this.list.appendChild(cell)
         }
     }
 
+    col(index) {
+        return this._id + 'col-' + index;
+    }
+
     _data_change() {
-        let index_visited = this.model.get('selected');
-        let selectdTD = this.table.getElementsByClassName('col-' + index_visited)[0];
-        selectdTD.textContent = this.model.get('data')[index_visited];
+        const prev_data = this.model.previous('data');
+        const data = this.model.get('data');
+        if(prev_data.length > data) {
+            this._create_object();
+        } else {
+            for(let i=0; i<data.length; i++) {
+                let selected_cell = document.getElementById(this.col(i));
+                selected_cell.textContent = data[i];
+            }
+        }
     }
 
     _selected_change() {
@@ -42,15 +55,15 @@ export class List1DTracerView extends TracerView {
         let previous_visited = this.model.get('visited');
         let previous_selected = this.model.previous('selected');
         if (previous_visited != -1) {
-            this.table.getElementsByClassName('col-' + previous_visited)[0].style.backgroundColor = this.model.get('defaultColor');
+            document.getElementById(this.col(previous_visited)).style.backgroundColor = this.model.get('defaultColor');
         }
         if (previous_selected != -1) {
-            this.table.getElementsByClassName('col-' + previous_selected)[0].style.backgroundColor = this.model.get('defaultColor');
+            document.getElementById(this.col(previous_selected)).style.backgroundColor = this.model.get('defaultColor');
         }
 
         // set background
-        let selectdTD = this.table.getElementsByClassName('col-' + this.model.get('selected'))[0];
-        selectdTD.style.backgroundColor = this.model.get('selectedColor');
+        let selected_cell = document.getElementById(this.col(this.model.get('selected')));
+        selected_cell.style.backgroundColor = this.model.get('selectedColor');
     }
 
     _visited_change() {
@@ -58,15 +71,15 @@ export class List1DTracerView extends TracerView {
         let previous_visited = this.model.previous('visited');
         let previous_selected = this.model.get('selected');
         if (previous_visited != -1) {
-            this.table.getElementsByClassName('col-' + previous_visited)[0].style.backgroundColor = this.model.get('defaultColor');
+            document.getElementById(this.col(previous_visited)).style.backgroundColor = this.model.get('defaultColor');
         }
         if (previous_selected != -1) {
-            this.table.getElementsByClassName('col-' + previous_selected)[0].style.backgroundColor = this.model.get('defaultColor');
+            document.getElementById(this.col(previous_selected)).style.backgroundColor = this.model.get('defaultColor');
         }
 
         // set background
-        let visitedTD = this.table.getElementsByClassName('col-' + this.model.get('visited'))[0];
-        visitedTD.style.backgroundColor = this.model.get('visitedColor');
+        let visited_cell = document.getElementById(this.col(this.model.get('visited')));
+        visited_cell.style.backgroundColor = this.model.get('visitedColor');
     }
 
 }
