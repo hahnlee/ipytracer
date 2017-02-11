@@ -69,7 +69,7 @@ def bubble_sort(unsorted_list):
 bubble_sort([6,4,7,9,3,5,1,8,2])
 ```
 
-![BubbleSortWork](src/bubble.gif)
+![BubbleSortWork](src/bubble_chart.gif)
 
 You can see [here](https://github.com/sn0wle0pard/tracer/tree/master/example)
 
