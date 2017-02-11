@@ -1,0 +1,11 @@
+name: ipytracer-test
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python
+  - traitlets
+  - traittypes
+  - widgetsnbextension
+  - ipywidgets>=6.0.0b6
+  - coverage  # test dependency
