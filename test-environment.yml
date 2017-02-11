@@ -4,8 +4,8 @@ channels:
   - defaults
 dependencies:
   - python
-  - traitlets
-  - traittypes
-  - widgetsnbextension
-  - ipywidgets
+  - ipywidgets >=5.2.2
+  - traitlets >=4.3.0
+  - traittypes >=0.0.6
   - coverage  # test dependency
+  - nose

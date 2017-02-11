@@ -25,7 +25,7 @@ install:
   - conda install pyyaml
   - conda env create -f test-environment.yml
   - source activate ipytracer-test
-  - pip install -e . coveralls
+  - pip install -e .
 script:
     - nosetests --with-coverage --cover-package ipytracer
 after_success:
