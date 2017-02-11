@@ -26,3 +26,5 @@ ipytracer/staticlab/
 
 # Node modules
 node_modules
+
+.coverage
