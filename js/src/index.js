@@ -6,6 +6,7 @@ export * from './directed_graph';
 export * from './tracer';
 export * from './tree';
 export * from './list1D';
+export * from './list2D';
 require('../css/index.css');
 
 export var version = require("../package.json").version;

@@ -1,60 +1,25 @@
 # -*- coding: UTF-8 -*-
 # Copyright (c) Han Lee.
 # Distributed under the terms of the Modified BSD License.
-from ipywidgets import (
-    DOMWidget,
-    Layout
-)
-from traitlets import (
-    Unicode,
-    Int,
-    List,
-    default
-)
+from IPython.core.display import display
+from .view import *
 import time
-from uuid import uuid4
 
 
-class Tracer(DOMWidget):
-    """Abstract base class for Tracers.
-    Tracer with specific codes are specializations of this class.
-    Tracer class is also eventful list.
+class Tracer(object):
 
-    :type data: list
-    :param data Data to track
-    :type delay: float
-    :param delay Animation delay in milliseconds for each event (default 0.25)
-    """
-
-    data = List().tag(sync=True)
-    _id = Unicode().tag(sync=True)
-
-    _view_module = Unicode('ipytracer').tag(sync=True)
-    _model_module = Unicode('ipytracer').tag(sync=True)
-
-    notified = Int(-1).tag(sync=True)
-    selected = Int(-1).tag(sync=True)
-    visited = Int(-1).tag(sync=True)
-
-    def __init__(self, data, delay=0.25, **kwargs):
-        super(Tracer, self).__init__(**kwargs)
+    def __init__(self, data):
         self.data = data
-        self._data = data
-        self.delay = delay
-        self._id = str(uuid4())
+        self.delay = 0.25
+        self.tracer = TracerView(self.data)
 
     def __add__(self, other):
-        self._data += other
-        self.data = self._data[:]
-        time.sleep(self.delay)
-
-    def __delitem__(self, key):
-        del self._data[key]
-        self.data = self._data[:]
+        self.data += other
+        self.update_data()
         time.sleep(self.delay)
 
     def __getitem__(self, key):
-        self.visited = key
+        self.tracer.update_visited(key)
         time.sleep(self.delay)
         return self.data[key]
 
@@ -62,30 +27,30 @@ class Tracer(DOMWidget):
         return len(self.data)
 
     def __setitem__(self, key, value):
-        self._data[key] = value
-        self.data = self._data[:]
-        self.selected = key
+        self.data[key] = value
+        self.update_data()
+        self.tracer.update_selected(key)
         time.sleep(self.delay)
 
     def append(self, value):
-        self._data.append(value)
-        self.data = list(self._data)
+        self.data.append(value)
+        self.data = list(self.data)
 
     def extend(self, L):
-        self._data.extend(L)
-        self.data = list(self._data)
+        self.data.extend(L)
+        self.update_data()
 
     def insert(self, i, x):
-        self._data.insert(i, x)
-        self.data = list(self._data)
+        self.data.insert(i, x)
+        self.update_data()
 
     def remove(self, x):
-        self._data.remove(x)
-        self.data = list(self._data)
+        self.data.remove(x)
+        self.update_data()
 
     def pop(self, i):
-        self._data.pop(i)
-        self.data = list(self._data)
+        self.data.pop(i)
+        self.update_data()
 
     def index(self, x):
         return self.data.index(x)
@@ -94,68 +59,39 @@ class Tracer(DOMWidget):
         return self.data.count(x)
 
     def sort(self, key=None, reverse=False):
-        self._data.sort(key=key, reverse=reverse)
-        self.data = list(self._data)
+        self.data.sort(key=key, reverse=reverse)
+        self.update_data()
 
     def reverse(self):
-        self._data.reverse()
-        self.data = list(self._data)
+        self.data.reverse()
+        self.update_data()
+
+    def update_data(self):
+        self.tracer.update_data(self.data)
+
+    def tolist(self):
+        return self.data
+
+    def _ipython_display_(self, **kwargs):
+        display(self.tracer)
 
 
 class ChartTracer(Tracer):
-    """
-    This tracer representing a one-dimensional list as a chart diagram
 
-    :param data to track
-    :param delay Animation delay in milliseconds for each event (default 0.25)
-    """
-
-    _view_name = Unicode('ChartTracerView').tag(sync=True)
-    _model_name = Unicode('ChartTracerModel').tag(sync=True)
-    labels = List().tag(sync=True)
-
-    @default('layout')
-    def _default_layout(self):
-        return Layout(width='100%', height='300px')
-
-    def __init__(self, data, delay=0.25, **kwargs):
-        super(ChartTracer, self).__init__(data, delay, **kwargs)
-        self.labels = [i for i in range(len(self.data))]
-
-
-class DirectedGraphTracer(Tracer):
-    """
-    Graph Data Type Visualization Tracer
-    """
-
-    _view_name = Unicode('DirectedGraphTracerView').tag(sync=True)
-    _model_name = Unicode('DirectedGraphTracerModel').tag(sync=True)
-
-    @default('layout')
-    def _default_layout(self):
-        return Layout(width='100%', height='300px')
-
-    def __init__(self, data, delay=0.25):
-        super(DirectedGraphTracer, self).__init__(data, delay)
-
-
-class TreeTracer(Tracer):
-    """
-    Tree Data Type Visualization Tracer
-    """
-
-    _view_name = Unicode('TreeTracerView').tag(sync=True)
-    _model_name = Unicode('TreeTracerModel').tag(sync=True)
-
-    def __init__(self, data, delay=0.25):
-        super(TreeTracer, self).__init__(data, delay)
+    def __init__(self, data):
+        super(ChartTracer, self).__init__(data)
+        self.tracer = ChartTracerView(self.data)
 
 
 class List1DTracer(Tracer):
-    """
-    This tracer representing a one-dimensional list as a HTML Table
-    """
 
-    _view_name = Unicode('List1DTracerView').tag(sync=True)
-    _model_name = Unicode('List1DTracerModel').tag(sync=True)
+    def __init__(self, data):
+        super(List1DTracer, self).__init__(data)
+        self.tracer = List1DTracerView(self.data)
 
+
+class List2DTracer(Tracer):
+
+    def __init__(self, data):
+        super(List2DTracer, self).__init__(data)
+        self.tracer = List2DTracerView(self.data)

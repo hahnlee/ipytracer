@@ -25,6 +25,10 @@ export class TracerView extends widgets.DOMWidgetView {
 
         // listen visited index change
         this.listenTo(this.model, 'change:visited', this._visited_change, this);
+
+        // listen data change
+        this.listenData();
+
         this.displayed.then(
             this.post_render()
         );
@@ -56,6 +60,14 @@ export class TracerView extends widgets.DOMWidgetView {
      * Tracers overload this method to create an object.
      */
     _create_object() {
+
+    }
+
+    /**
+     * Listen Data change
+     * Tracers overload this method to listen data change
+     */
+    listenData() {
 
     }
 
