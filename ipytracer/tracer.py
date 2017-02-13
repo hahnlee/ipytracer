@@ -12,6 +12,7 @@ class Tracer(object):
         self.data = data
         self.delay = 0.25
         self.tracer = TracerView(self.data)
+        self._observers = []
 
     def __add__(self, other):
         self.data += other
@@ -95,3 +96,36 @@ class List2DTracer(Tracer):
     def __init__(self, data):
         super(List2DTracer, self).__init__(data)
         self.tracer = List2DTracerView(self.data)
+        self._set_data()
+
+    def _set_data(self):
+        for i in range(len(self.data)):
+            if isinstance(self.data[i], list):
+                self._observers.append(List2D(self.data[i]))
+                self._observers[i].set_observer(self)
+        self.data = self._observers
+
+    def update_visited_col(self, index):
+        self.tracer.update_visited_col(index)
+
+    def update_selected_col(self, index):
+        self.tracer.update_selected_col(index)
+        self.update_data()
+
+
+class List2D(list):
+
+    observer = None
+
+    def set_observer(self, observer):
+        self.observer = observer
+
+    def __getitem__(self, item):
+        if self.observer is not None:
+            self.observer.update_visited_col(item)
+        return list.__getitem__(self, item)
+
+    def __setitem__(self, key, value):
+        list.__setitem__(self, key, value)
+        if self.observer is not None:
+            self.observer.update_selected_col(key)

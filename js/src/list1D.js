@@ -29,7 +29,7 @@ export class List1DTracerView extends TracerView {
             cell.id = this.col(i);
             cell.style.backgroundColor = this.model.get('defaultColor');
             cell.textContent = data[i];
-            this.list.appendChild(cell)
+            this.list.appendChild(cell);
         }
     }
 

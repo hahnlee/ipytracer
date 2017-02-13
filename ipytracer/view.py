@@ -41,7 +41,7 @@ class TracerView(DOMWidget):
         self._id = str(uuid4())
 
     def update_data(self, data):
-        self.data = data[:]
+        self.data = list(data)
 
     def update_visited(self, index):
         self.visited = index
@@ -115,3 +115,9 @@ class List2DTracerView(TracerView):
 
     visited_col = Int(-1).tag(sync=True)
     selected_col = Int(-1).tag(sync=True)
+
+    def update_selected_col(self, index):
+        self.selected_col = index
+
+    def update_visited_col(self, index):
+        self.visited_col = index

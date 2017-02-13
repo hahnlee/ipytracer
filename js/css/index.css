@@ -6,6 +6,10 @@
     border-left: none;
 }
 
+.ipytracer-row {
+    display: table-row;
+}
+
 .ipytracer-cell {
     display: table-cell;
     color: #fff;
