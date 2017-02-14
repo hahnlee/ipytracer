@@ -47,12 +47,26 @@ module.exports = [
         },
         externals: ['jupyter-js-widgets']
     },
-    {// embeddable ipytracer bundle
-        entry: './src/index.js',
+    {// Embeddable ipytracer bundle
+     //
+     // This bundle is generally almost identical to the notebook bundle
+     // containing the custom widget views and models.
+     //
+     // The only difference is in the configuration of the webpack public path
+     // for the static assets.
+     //
+     // It will be automatically distributed by unpkg to work with the static
+     // widget embedder.
+     //
+     // The target bundle is always `dist/index.js`, which is the path required
+     // by the custom widget embedder.
+     //
+        entry: './src/embed.js',
         output: {
             filename: 'index.js',
             path: './dist/',
-            libraryTarget: 'amd'
+            libraryTarget: 'amd',
+            publicPath: 'https://unpkg.com/ipytracer@' + version + '/dist/'
         },
         devtool: 'source-map',
         module: {
