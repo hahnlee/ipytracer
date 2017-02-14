@@ -70,6 +70,11 @@ class ChartTracerView(TracerView):
         super(ChartTracerView, self).__init__(data, **kwargs)
         self.labels = [i for i in range(len(self.data))]
 
+    def update_data(self, data):
+        if len(self.data) != self.data:
+            self.labels = [i for i in range(len(data))]
+        self.data = list(data)
+
 
 class DirectedGraphTracerView(TracerView):
     """

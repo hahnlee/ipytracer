@@ -63,6 +63,15 @@ export class ChartTracerView extends TracerView {
         this.tracerChart.update();
     }
 
+    _label_change() {
+        this.tracerChart.config.data.labels = this.model.get('labels');
+        this.tracerChart.update();
+    }
+
+    listenData() {
+        this.listenTo(this.model, 'change:labels', this._label_change, this);
+    }
+
     _selected_change() {
         // clear background
         let previous_visited = this.model.get('visited');
@@ -101,6 +110,7 @@ export class ChartTracerView extends TracerView {
 export var ChartTracerModel = TracerModel.extend({
     defaults: _.extend({}, TracerModel.prototype.defaults, {
         _view_name: 'ChartTracerView',
-        _model_name: 'ChartTracerModel'
+        _model_name: 'ChartTracerModel',
+        labels: []
     })
 });

@@ -56,8 +56,8 @@ export class List2DTracerView extends TracerView {
             this._create_object();
         } else {
             //same row length
-            for (let i in data) {
-                if (data[i].length != previous_data[i]) {
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].length != previous_data[i].length) {
                     // different col length
 
                     let previous_row = document.getElementById(this.row(i));
@@ -66,11 +66,11 @@ export class List2DTracerView extends TracerView {
                     while (previous_row.firstChild) {
                         previous_row.removeChild(previous_row.firstChild);
                     }
-                    for (let j in data[i]) {
+                    for (let j = 0; j < data[i].length; j++) {
                         this._create_cell(i, j, previous_row, data[i][j]);
                     }
                 } else {
-                    for (let j in data[i]) {
+                    for (let j=0; j<data[i].length; j++) {
                         document.getElementById(this.col(i, j)).textContent = data[i][j];
                     }
                 }
@@ -88,20 +88,21 @@ export class List2DTracerView extends TracerView {
 
     _change_bg(x, color) {
         let children = document.getElementById(this.row(x)).children;
-        for (let i in children) {
-            console.log(i);
-            children[i].style.backgroundColor = this.model.get(color);
+        for (let i = 0; i < children.length; i++) {
+            if (children[i] !== null || children[i] !== undefined) {
+                children[i].style.backgroundColor = this.model.get(color);
+            }
         }
     }
 
     _selected_change() {
         const previous_visited = this.model.get('visited');
-        if (previous_visited != -1) {
+        if (previous_visited !== -1) {
             this._change_bg(previous_visited, 'defaultColor');
         }
         const previous_selected = this.model.previous('selected');
 
-        if (previous_selected != -1) {
+        if (previous_selected !== -1) {
             this._change_bg(previous_selected, 'defaultColor');
         }
 
@@ -111,11 +112,11 @@ export class List2DTracerView extends TracerView {
 
     _visited_change() {
         const previous_visited = this.model.previous('visited');
-        if (previous_visited != -1) {
+        if (previous_visited !== -1) {
             this._change_bg(previous_visited, 'defaultColor');
         }
         const previous_selected = this.model.get('selected');
-        if (previous_selected != -1) {
+        if (previous_selected !== -1) {
             this._change_bg(previous_selected, 'defaultColor');
         }
 
@@ -129,10 +130,8 @@ export class List2DTracerView extends TracerView {
 
         const col = this.model.get('selected_col');
 
-        console.log(visited, col);
-        console.log(document.getElementById(this.col(visited, col)));
-
-        document.getElementById(this.col(visited, col)).style.backgroundColor = this.model.get('selectedColor');
+        let change = document.getElementById(this.col(visited, col));
+        change.style.backgroundColor = this.model.get('selectedColor');
     }
 
     _visited_col_change() {
@@ -141,9 +140,10 @@ export class List2DTracerView extends TracerView {
 
         const col = this.model.get('visited_col');
 
-        console.log(visited, col);
-        console.log(document.getElementById(this.col(visited, col)));
-        document.getElementById(this.col(visited, col)).style.backgroundColor = this.model.get('visitedColor');
+        let change = document.getElementById(this.col(visited, col));
+        if (change !== null || change !== undefined) {
+            change.style.backgroundColor = this.model.get('visitedColor');
+        }
     }
 
 }

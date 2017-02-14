@@ -15,6 +15,7 @@
     color: #fff;
     padding: 0.5em;
     border-left: 1px solid #fff;
+    border-bottom: 1px solid #fff;
 }
 
 .ipytracer-graph {
