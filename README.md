@@ -4,7 +4,7 @@
 
 > Inspired by parkjs814's [AlgorithmVisualizer](https://github.com/parkjs814/AlgorithmVisualizer).
 
-Master | Lastes
+Master | Latest(0.2.1)
 -------|-------
 [![tv-master-img][]][tv-site]|[![tv-latest-img][]][tv-site]
 
