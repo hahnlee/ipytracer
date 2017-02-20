@@ -40,10 +40,10 @@ export class List1DTracerView extends TracerView {
     _data_change() {
         const prev_data = this.model.previous('data');
         const data = this.model.get('data');
-        if(prev_data.length > data) {
+        if (prev_data.length != data.length) {
             this._create_object();
         } else {
-            for(let i=0; i<data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 let selected_cell = document.getElementById(this.col(i));
                 selected_cell.textContent = data[i];
             }

@@ -19,3 +19,13 @@ class List2D(list):
         list.__setitem__(self, key, value)
         if self.observer is not None:
             self.observer.update_selected_col(key)
+
+
+class Edge(list):
+    """
+    Edge data type for graph tracer
+    """
+    observer = None
+
+    def set_observer(self, observer):
+        self.observer = observer

@@ -11,8 +11,13 @@ import {TracerView, TracerModel} from './tracer';
 import * as _ from 'underscore';
 
 export class DirectedGraphTracerView extends TracerView {
+    initialize() {
+        this.setElement(document.createElementNS(d3.ns.prefix.svg, "g"));
+        this.d3el = d3.select(this.el);
+        DirectedGraphTracerView.__super__.initialize.apply(this, arguments);
+    }
+
     _create_object() {
-        this.el.className = "ipytracer-graph";
     }
 
 }
