@@ -36,7 +36,9 @@ export class ChartTracerView extends TracerView {
                     }]
                 },
                 animation: false,
-                legend: false,
+                legend: {
+                    display: false
+                },
                 responsive: true,
                 maintainAspectRatio: false
             }

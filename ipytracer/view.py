@@ -68,10 +68,10 @@ class ChartTracerView(TracerView):
 
     def __init__(self, data, **kwargs):
         super(ChartTracerView, self).__init__(data, **kwargs)
-        self.labels = [i for i in range(len(self.data))]
+        self.labels = [i for i in range(len(data))]
 
     def update_data(self, data):
-        if len(self.data) != self.data:
+        if len(self.data) != len(data):
             self.labels = [i for i in range(len(data))]
         self.data = list(data)
 
