@@ -4,7 +4,7 @@
 
 > Inspired by parkjs814's [AlgorithmVisualizer](https://github.com/parkjs814/AlgorithmVisualizer).
 
-Master | Latest(0.2.1)
+Master | Latest(0.2.2)
 -------|-------
 [![tv-master-img][]][tv-site]|[![tv-latest-img][]][tv-site]
 
@@ -62,6 +62,24 @@ $ jupyter nbextension enable --py --sys-prefix ipytracer
 
 https://youtu.be/vZQJ0Y3GtIs
 
+## Tracers
+### List1DTracer
+
+Display | Get Item | Set Item
+--------|----------|---------
+![List1DBasic](src/list1d-basic.png) | ![List1DGet](src/list1d-getitem.png) | ![list1DSet](src/list1d-setitem.png)
+
+### List2DTracer
+
+Get Item | Set Item
+---------|---------
+![List2DRowGet](src/list2d-row-get.png)| ![List2DRowSet](src/list2d-row-set.png)
+![List2DColGet](src/list2d-col-get.png)| ![List2DColSet](src/list2d-col-set.png)
+### ChartTracer
+
+Display | Get Item | Set Item
+--------|----------|---------
+![ChartBasic](src/chart-basic.png) | ![ChartGet](src/chart-get.png) | ![ChartSet](src/chart-set.png)
 ## Bubble Sort
 
 ```python
@@ -76,14 +94,14 @@ def bubble_sort(unsorted_list):
         for j in range(length-i):
             if x[j] > x[j+1]:
                 x[j], x[j+1] = x[j+1], x[j]
-    return x.data
+    return x.tolist()
 
 bubble_sort([6,4,7,9,3,5,1,8,2])
 ```
 
 ![BubbleSortWork](src/bubble_chart.gif)
 
-You can see [here](https://github.com/sn0wle0pard/tracer/tree/master/example)
+You can see more example [here](https://github.com/sn0wle0pard/tracer/tree/master/example)
 
 Third Party Libraries
 -----
