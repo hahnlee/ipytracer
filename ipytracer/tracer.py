@@ -34,6 +34,9 @@ class Tracer(object):
         self.tracer.update_selected(key)
         time.sleep(self.delay)
 
+    def __str__(self):
+        return str(self.data)
+
     def append(self, value):
         self.data.append(value)
         self.data = list(self.data)
