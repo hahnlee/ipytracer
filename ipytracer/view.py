@@ -1,16 +1,14 @@
 # -*- coding: UTF-8 -*-
 # Copyright (c) Han Lee.
 # Distributed under the terms of the Modified BSD License.
-from ipywidgets import (
-    DOMWidget,
-    Layout
-)
-from traitlets import (
-    Unicode,
-    Int,
-    List,
-    default
-)
+from ipywidgets import DOMWidget
+from ipywidgets import Layout
+
+from traitlets import Unicode
+from traitlets import Int
+from traitlets import List
+from traitlets import default
+
 from uuid import uuid4
 
 

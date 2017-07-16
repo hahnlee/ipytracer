@@ -29,3 +29,4 @@ class Edge(list):
 
     def set_observer(self, observer):
         self.observer = observer
+
